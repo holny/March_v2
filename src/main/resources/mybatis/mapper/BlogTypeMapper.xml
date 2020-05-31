@@ -1,0 +1,306 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hly.march2.dao.BlogTypeMapper">
+  <resultMap id="BaseResultMap" type="com.hly.march2.entity.BlogType">
+    <id column="type_id" jdbcType="INTEGER" property="typeId" />
+    <result column="type_name" jdbcType="VARCHAR" property="typeName" />
+    <result column="type_create_time" jdbcType="TIMESTAMP" property="typeCreateTime" />
+    <result column="user_id" jdbcType="BIGINT" property="userId" />
+    <result column="type_status" jdbcType="INTEGER" property="typeStatus" />
+    <result column="type_link" jdbcType="VARCHAR" property="typeLink" />
+    <result column="type_popular" jdbcType="BIGINT" property="typePopular" />
+    <result column="type_num" jdbcType="INTEGER" property="typeNum" />
+    <result column="type_short_name" jdbcType="VARCHAR" property="typeShortName" />
+    <result column="farther_type" jdbcType="VARCHAR" property="fartherType" />
+    <result column="farther_id" jdbcType="INTEGER" property="fartherId" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    type_id, type_name, type_create_time, user_id, type_status, type_link, type_popular, 
+    type_num, type_short_name, farther_type, farther_id
+  </sql>
+  <select id="selectByExample" parameterType="com.hly.march2.entity.BlogTypeExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from blog_type
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from blog_type
+    where type_id = #{typeId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from blog_type
+    where type_id = #{typeId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.hly.march2.entity.BlogTypeExample">
+    delete from blog_type
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.hly.march2.entity.BlogType" useGeneratedKeys="true" keyProperty="typeId">
+    insert into blog_type (type_id, type_name, type_create_time, 
+      user_id, type_status, type_link, 
+      type_popular, type_num, type_short_name, 
+      farther_type, farther_id)
+    values (#{typeId,jdbcType=INTEGER}, #{typeName,jdbcType=VARCHAR}, #{typeCreateTime,jdbcType=TIMESTAMP}, 
+      #{userId,jdbcType=BIGINT}, #{typeStatus,jdbcType=INTEGER}, #{typeLink,jdbcType=VARCHAR}, 
+      #{typePopular,jdbcType=BIGINT}, #{typeNum,jdbcType=INTEGER}, #{typeShortName,jdbcType=VARCHAR}, 
+      #{fartherType,jdbcType=VARCHAR}, #{fartherId,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.hly.march2.entity.BlogType"  useGeneratedKeys="true" keyProperty="typeId">
+    insert into blog_type
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="typeId != null">
+        type_id,
+      </if>
+      <if test="typeName != null">
+        type_name,
+      </if>
+      <if test="typeCreateTime != null">
+        type_create_time,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="typeStatus != null">
+        type_status,
+      </if>
+      <if test="typeLink != null">
+        type_link,
+      </if>
+      <if test="typePopular != null">
+        type_popular,
+      </if>
+      <if test="typeNum != null">
+        type_num,
+      </if>
+      <if test="typeShortName != null">
+        type_short_name,
+      </if>
+      <if test="fartherType != null">
+        farther_type,
+      </if>
+      <if test="fartherId != null">
+        farther_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="typeId != null">
+        #{typeId,jdbcType=INTEGER},
+      </if>
+      <if test="typeName != null">
+        #{typeName,jdbcType=VARCHAR},
+      </if>
+      <if test="typeCreateTime != null">
+        #{typeCreateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="typeStatus != null">
+        #{typeStatus,jdbcType=INTEGER},
+      </if>
+      <if test="typeLink != null">
+        #{typeLink,jdbcType=VARCHAR},
+      </if>
+      <if test="typePopular != null">
+        #{typePopular,jdbcType=BIGINT},
+      </if>
+      <if test="typeNum != null">
+        #{typeNum,jdbcType=INTEGER},
+      </if>
+      <if test="typeShortName != null">
+        #{typeShortName,jdbcType=VARCHAR},
+      </if>
+      <if test="fartherType != null">
+        #{fartherType,jdbcType=VARCHAR},
+      </if>
+      <if test="fartherId != null">
+        #{fartherId,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.hly.march2.entity.BlogTypeExample" resultType="java.lang.Long">
+    select count(*) from blog_type
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update blog_type
+    <set>
+      <if test="record.typeId != null">
+        type_id = #{record.typeId,jdbcType=INTEGER},
+      </if>
+      <if test="record.typeName != null">
+        type_name = #{record.typeName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.typeCreateTime != null">
+        type_create_time = #{record.typeCreateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.userId != null">
+        user_id = #{record.userId,jdbcType=BIGINT},
+      </if>
+      <if test="record.typeStatus != null">
+        type_status = #{record.typeStatus,jdbcType=INTEGER},
+      </if>
+      <if test="record.typeLink != null">
+        type_link = #{record.typeLink,jdbcType=VARCHAR},
+      </if>
+      <if test="record.typePopular != null">
+        type_popular = #{record.typePopular,jdbcType=BIGINT},
+      </if>
+      <if test="record.typeNum != null">
+        type_num = #{record.typeNum,jdbcType=INTEGER},
+      </if>
+      <if test="record.typeShortName != null">
+        type_short_name = #{record.typeShortName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fartherType != null">
+        farther_type = #{record.fartherType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fartherId != null">
+        farther_id = #{record.fartherId,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update blog_type
+    set type_id = #{record.typeId,jdbcType=INTEGER},
+      type_name = #{record.typeName,jdbcType=VARCHAR},
+      type_create_time = #{record.typeCreateTime,jdbcType=TIMESTAMP},
+      user_id = #{record.userId,jdbcType=BIGINT},
+      type_status = #{record.typeStatus,jdbcType=INTEGER},
+      type_link = #{record.typeLink,jdbcType=VARCHAR},
+      type_popular = #{record.typePopular,jdbcType=BIGINT},
+      type_num = #{record.typeNum,jdbcType=INTEGER},
+      type_short_name = #{record.typeShortName,jdbcType=VARCHAR},
+      farther_type = #{record.fartherType,jdbcType=VARCHAR},
+      farther_id = #{record.fartherId,jdbcType=INTEGER}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hly.march2.entity.BlogType">
+    update blog_type
+    <set>
+      <if test="typeName != null">
+        type_name = #{typeName,jdbcType=VARCHAR},
+      </if>
+      <if test="typeCreateTime != null">
+        type_create_time = #{typeCreateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="typeStatus != null">
+        type_status = #{typeStatus,jdbcType=INTEGER},
+      </if>
+      <if test="typeLink != null">
+        type_link = #{typeLink,jdbcType=VARCHAR},
+      </if>
+      <if test="typePopular != null">
+        type_popular = #{typePopular,jdbcType=BIGINT},
+      </if>
+      <if test="typeNum != null">
+        type_num = #{typeNum,jdbcType=INTEGER},
+      </if>
+      <if test="typeShortName != null">
+        type_short_name = #{typeShortName,jdbcType=VARCHAR},
+      </if>
+      <if test="fartherType != null">
+        farther_type = #{fartherType,jdbcType=VARCHAR},
+      </if>
+      <if test="fartherId != null">
+        farther_id = #{fartherId,jdbcType=INTEGER},
+      </if>
+    </set>
+    where type_id = #{typeId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hly.march2.entity.BlogType">
+    update blog_type
+    set type_name = #{typeName,jdbcType=VARCHAR},
+      type_create_time = #{typeCreateTime,jdbcType=TIMESTAMP},
+      user_id = #{userId,jdbcType=BIGINT},
+      type_status = #{typeStatus,jdbcType=INTEGER},
+      type_link = #{typeLink,jdbcType=VARCHAR},
+      type_popular = #{typePopular,jdbcType=BIGINT},
+      type_num = #{typeNum,jdbcType=INTEGER},
+      type_short_name = #{typeShortName,jdbcType=VARCHAR},
+      farther_type = #{fartherType,jdbcType=VARCHAR},
+      farther_id = #{fartherId,jdbcType=INTEGER}
+    where type_id = #{typeId,jdbcType=INTEGER}
+  </update>
+</mapper>

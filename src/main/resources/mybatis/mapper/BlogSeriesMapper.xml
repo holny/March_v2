@@ -1,0 +1,484 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hly.march2.dao.BlogSeriesMapper">
+  <resultMap id="BaseResultMap" type="com.hly.march2.entity.BlogSeries">
+    <id column="series_id" jdbcType="BIGINT" property="seriesId" />
+    <result column="series_short_name" jdbcType="VARCHAR" property="seriesShortName" />
+    <result column="series_name" jdbcType="VARCHAR" property="seriesName" />
+    <result column="user_id" jdbcType="BIGINT" property="userId" />
+    <result column="series_create_time" jdbcType="TIMESTAMP" property="seriesCreateTime" />
+    <result column="series_update_time" jdbcType="TIMESTAMP" property="seriesUpdateTime" />
+    <result column="series_num" jdbcType="INTEGER" property="seriesNum" />
+    <result column="series_status" jdbcType="INTEGER" property="seriesStatus" />
+    <result column="series_type" jdbcType="INTEGER" property="seriesType" />
+    <result column="series_link" jdbcType="VARCHAR" property="seriesLink" />
+    <result column="series_popular" jdbcType="BIGINT" property="seriesPopular" />
+    <result column="series_intro" jdbcType="VARCHAR" property="seriesIntro" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    series_id, series_short_name, series_name, user_id, series_create_time, series_update_time, 
+    series_num, series_status, series_type, series_link, series_popular, series_intro
+  </sql>
+  <select id="selectByExample" parameterType="com.hly.march2.entity.BlogSeriesExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from blog_series
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from blog_series
+    where series_id = #{seriesId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from blog_series
+    where series_id = #{seriesId,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.hly.march2.entity.BlogSeriesExample">
+    delete from blog_series
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.hly.march2.entity.BlogSeries" useGeneratedKeys="true" keyProperty="seriesId">
+    insert into blog_series (series_id, series_short_name, series_name, 
+      user_id, series_create_time, series_update_time, 
+      series_num, series_status, series_type, 
+      series_link, series_popular, series_intro
+      )
+    values (#{seriesId,jdbcType=BIGINT}, #{seriesShortName,jdbcType=VARCHAR}, #{seriesName,jdbcType=VARCHAR}, 
+      #{userId,jdbcType=BIGINT}, #{seriesCreateTime,jdbcType=TIMESTAMP}, #{seriesUpdateTime,jdbcType=TIMESTAMP}, 
+      #{seriesNum,jdbcType=INTEGER}, #{seriesStatus,jdbcType=INTEGER}, #{seriesType,jdbcType=INTEGER}, 
+      #{seriesLink,jdbcType=VARCHAR}, #{seriesPopular,jdbcType=BIGINT}, #{seriesIntro,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.hly.march2.entity.BlogSeries" useGeneratedKeys="true" keyProperty="seriesId">
+    insert into blog_series
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="seriesId != null">
+        series_id,
+      </if>
+      <if test="seriesShortName != null">
+        series_short_name,
+      </if>
+      <if test="seriesName != null">
+        series_name,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="seriesCreateTime != null">
+        series_create_time,
+      </if>
+      <if test="seriesUpdateTime != null">
+        series_update_time,
+      </if>
+      <if test="seriesNum != null">
+        series_num,
+      </if>
+      <if test="seriesStatus != null">
+        series_status,
+      </if>
+      <if test="seriesType != null">
+        series_type,
+      </if>
+      <if test="seriesLink != null">
+        series_link,
+      </if>
+      <if test="seriesPopular != null">
+        series_popular,
+      </if>
+      <if test="seriesIntro != null">
+        series_intro,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="seriesId != null">
+        #{seriesId,jdbcType=BIGINT},
+      </if>
+      <if test="seriesShortName != null">
+        #{seriesShortName,jdbcType=VARCHAR},
+      </if>
+      <if test="seriesName != null">
+        #{seriesName,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="seriesCreateTime != null">
+        #{seriesCreateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="seriesUpdateTime != null">
+        #{seriesUpdateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="seriesNum != null">
+        #{seriesNum,jdbcType=INTEGER},
+      </if>
+      <if test="seriesStatus != null">
+        #{seriesStatus,jdbcType=INTEGER},
+      </if>
+      <if test="seriesType != null">
+        #{seriesType,jdbcType=INTEGER},
+      </if>
+      <if test="seriesLink != null">
+        #{seriesLink,jdbcType=VARCHAR},
+      </if>
+      <if test="seriesPopular != null">
+        #{seriesPopular,jdbcType=BIGINT},
+      </if>
+      <if test="seriesIntro != null">
+        #{seriesIntro,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.hly.march2.entity.BlogSeriesExample" resultType="java.lang.Long">
+    select count(*) from blog_series
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update blog_series
+    <set>
+      <if test="record.seriesId != null">
+        series_id = #{record.seriesId,jdbcType=BIGINT},
+      </if>
+      <if test="record.seriesShortName != null">
+        series_short_name = #{record.seriesShortName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.seriesName != null">
+        series_name = #{record.seriesName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userId != null">
+        user_id = #{record.userId,jdbcType=BIGINT},
+      </if>
+      <if test="record.seriesCreateTime != null">
+        series_create_time = #{record.seriesCreateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.seriesUpdateTime != null">
+        series_update_time = #{record.seriesUpdateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.seriesNum != null">
+        series_num = #{record.seriesNum,jdbcType=INTEGER},
+      </if>
+      <if test="record.seriesStatus != null">
+        series_status = #{record.seriesStatus,jdbcType=INTEGER},
+      </if>
+      <if test="record.seriesType != null">
+        series_type = #{record.seriesType,jdbcType=INTEGER},
+      </if>
+      <if test="record.seriesLink != null">
+        series_link = #{record.seriesLink,jdbcType=VARCHAR},
+      </if>
+      <if test="record.seriesPopular != null">
+        series_popular = #{record.seriesPopular,jdbcType=BIGINT},
+      </if>
+      <if test="record.seriesIntro != null">
+        series_intro = #{record.seriesIntro,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update blog_series
+    set series_id = #{record.seriesId,jdbcType=BIGINT},
+      series_short_name = #{record.seriesShortName,jdbcType=VARCHAR},
+      series_name = #{record.seriesName,jdbcType=VARCHAR},
+      user_id = #{record.userId,jdbcType=BIGINT},
+      series_create_time = #{record.seriesCreateTime,jdbcType=TIMESTAMP},
+      series_update_time = #{record.seriesUpdateTime,jdbcType=TIMESTAMP},
+      series_num = #{record.seriesNum,jdbcType=INTEGER},
+      series_status = #{record.seriesStatus,jdbcType=INTEGER},
+      series_type = #{record.seriesType,jdbcType=INTEGER},
+      series_link = #{record.seriesLink,jdbcType=VARCHAR},
+      series_popular = #{record.seriesPopular,jdbcType=BIGINT},
+      series_intro = #{record.seriesIntro,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hly.march2.entity.BlogSeries">
+    update blog_series
+    <set>
+      <if test="seriesShortName != null">
+        series_short_name = #{seriesShortName,jdbcType=VARCHAR},
+      </if>
+      <if test="seriesName != null">
+        series_name = #{seriesName,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="seriesCreateTime != null">
+        series_create_time = #{seriesCreateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="seriesUpdateTime != null">
+        series_update_time = #{seriesUpdateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="seriesNum != null">
+        series_num = #{seriesNum,jdbcType=INTEGER},
+      </if>
+      <if test="seriesStatus != null">
+        series_status = #{seriesStatus,jdbcType=INTEGER},
+      </if>
+      <if test="seriesType != null">
+        series_type = #{seriesType,jdbcType=INTEGER},
+      </if>
+      <if test="seriesLink != null">
+        series_link = #{seriesLink,jdbcType=VARCHAR},
+      </if>
+      <if test="seriesPopular != null">
+        series_popular = #{seriesPopular,jdbcType=BIGINT},
+      </if>
+      <if test="seriesIntro != null">
+        series_intro = #{seriesIntro,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where series_id = #{seriesId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hly.march2.entity.BlogSeries">
+    update blog_series
+    set series_short_name = #{seriesShortName,jdbcType=VARCHAR},
+      series_name = #{seriesName,jdbcType=VARCHAR},
+      user_id = #{userId,jdbcType=BIGINT},
+      series_create_time = #{seriesCreateTime,jdbcType=TIMESTAMP},
+      series_update_time = #{seriesUpdateTime,jdbcType=TIMESTAMP},
+      series_num = #{seriesNum,jdbcType=INTEGER},
+      series_status = #{seriesStatus,jdbcType=INTEGER},
+      series_type = #{seriesType,jdbcType=INTEGER},
+      series_link = #{seriesLink,jdbcType=VARCHAR},
+      series_popular = #{seriesPopular,jdbcType=BIGINT},
+      series_intro = #{seriesIntro,jdbcType=VARCHAR}
+    where series_id = #{seriesId,jdbcType=BIGINT}
+  </update>
+
+  <!-- Count -->
+  <resultMap id="SeriesBlogCountResultMap" type="com.hly.march2.vo.SeriesVO">
+    <id column="series_id" jdbcType="BIGINT" property="seriesId" />
+    <result column="series_short_name" jdbcType="VARCHAR" property="seriesShortName" />
+    <result column="series_name" jdbcType="VARCHAR" property="seriesName" />
+    <result column="user_id" jdbcType="BIGINT" property="userId" />
+    <result column="series_create_time" jdbcType="TIMESTAMP" property="seriesCreateTime" />
+    <result column="series_update_time" jdbcType="TIMESTAMP" property="seriesUpdateTime" />
+    <result column="series_status" jdbcType="INTEGER" property="seriesStatus" />
+    <result column="series_intro" jdbcType="VARCHAR" property="seriesIntro" />
+    <result column="blog_sum" jdbcType="BIGINT" property="blogNum" />
+    <result column="view_sum" jdbcType="BIGINT" property="viewNum" />
+    <result column="like_sum" jdbcType="BIGINT" property="likeNum" />
+    <result column="comment_sum" jdbcType="BIGINT" property="commentNum" />
+    <association property="user" column="user_id" javaType="com.hly.march2.entity.User">
+      <id column="user_id" jdbcType="BIGINT" property="userId" />
+      <result column="user_ip" jdbcType="VARCHAR" property="userIp" />
+      <result column="user_name" jdbcType="VARCHAR" property="userName" />
+      <result column="user_email" jdbcType="VARCHAR" property="userEmail" />
+      <result column="user_profile_pic" jdbcType="VARCHAR" property="userProfilePic" />
+      <result column="user_rights" jdbcType="INTEGER" property="userRights" />
+      <result column="user_nickname" jdbcType="VARCHAR" property="userNickname" />
+      <result column="user_last_login_time" jdbcType="TIMESTAMP" property="userLastLoginTime" />
+      <result column="account_status" jdbcType="INTEGER" property="accountStatus" />
+    </association>
+  </resultMap>
+  <sql id="Series_Column_List">
+    s.series_id, s.series_short_name, s.series_name, s.user_id, s.series_create_time, s.series_update_time,
+    s.series_status,s.series_intro
+  </sql>
+  <sql id="b_Blog_Column_List">
+  b.blog_sum, b.view_sum, b.like_sum, b.comment_sum
+  </sql>
+  <sql id="Blog_Count_Column_List">
+  series_id,COUNT(blog_id) as blog_sum,SUM(blog_views) as view_sum,SUM(blog_like_count) as like_sum,SUM(blog_comment_count) as comment_sum
+  </sql>
+  <sql id="User_Column_list">
+    u.user_id, u.user_name, u.user_profile_pic, u.user_nickname, u.user_last_login_time, u.account_status
+  </sql>
+  <sql id="Blog_Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+
+  <select id="getSeriesCountByBlogExample" parameterType="com.hly.march2.entity.BlogExample" resultMap="SeriesBlogCountResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Series_Column_List" />
+    ,
+    <include refid="b_Blog_Column_List" />
+    ,
+    <include refid="User_Column_list" />
+    from blog_series as s RIGHT OUTER JOIN(
+    SELECT
+    <include refid="Blog_Count_Column_List" />
+    FROM blog
+    <if test="_parameter != null">
+      <include refid="Blog_Example_Where_Clause" />
+    </if>
+    GROUP BY series_id
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    )as b on b.series_id=s.series_id
+    LEFT OUTER JOIN `user` as u on u.user_id= s.user_id
+  </select>
+
+  <!--Series Blog-->
+  <resultMap id="SeriesBlogResultMap" type="com.hly.march2.vo.SeriesVO">
+    <id column="series_id" jdbcType="BIGINT" property="seriesId" />
+    <result column="series_short_name" jdbcType="VARCHAR" property="seriesShortName" />
+    <result column="series_name" jdbcType="VARCHAR" property="seriesName" />
+    <result column="user_id" jdbcType="BIGINT" property="userId" />
+    <result column="series_create_time" jdbcType="TIMESTAMP" property="seriesCreateTime" />
+    <result column="series_update_time" jdbcType="TIMESTAMP" property="seriesUpdateTime" />
+    <result column="series_status" jdbcType="INTEGER" property="seriesStatus" />
+    <result column="series_intro" jdbcType="VARCHAR" property="seriesIntro" />
+    <association property="user" column="user_id" javaType="com.hly.march2.entity.User">
+      <id column="user_id" jdbcType="BIGINT" property="userId" />
+      <result column="user_name" jdbcType="VARCHAR" property="userName" />
+      <result column="user_profile_pic" jdbcType="VARCHAR" property="userProfilePic" />
+      <result column="user_rights" jdbcType="INTEGER" property="userRights" />
+      <result column="user_nickname" jdbcType="VARCHAR" property="userNickname" />
+      <result column="user_last_login_time" jdbcType="TIMESTAMP" property="userLastLoginTime" />
+      <result column="account_status" jdbcType="INTEGER" property="accountStatus" />
+    </association>
+    <collection property="blogUserVoList" javaType="java.util.ArrayList" ofType="com.hly.march2.vo.BlogUserVo">
+       <id column="blog_id" jdbcType="BIGINT" property="blogId" />
+      <result column="user_id" jdbcType="BIGINT" property="userId" />
+      <result column="blog_status" jdbcType="INTEGER" property="blogStatus" />
+      <result column="blog_type" jdbcType="INTEGER" property="blogType" />
+      <result column="series_id" jdbcType="BIGINT" property="seriesId" />
+      <result column="blog_title" jdbcType="VARCHAR" property="blogTitle" />
+      <result column="blog_intro" jdbcType="VARCHAR" property="blogIntro" />
+      <result column="blog_views" jdbcType="BIGINT" property="blogViews" />
+      <result column="blog_comment_count" jdbcType="BIGINT" property="blogCommentCount" />
+      <result column="blog_create_time" jdbcType="TIMESTAMP" property="blogCreateTime" />
+      <result column="blog_update_time" jdbcType="TIMESTAMP" property="blogUpdateTime" />
+      <result column="blog_like_count" jdbcType="BIGINT" property="blogLikeCount" />
+      <result column="blog_media" jdbcType="VARCHAR" property="blogMedia" />
+      <result column="blog_tag" jdbcType="VARCHAR" property="blogTag" />
+      <result column="blog_info" jdbcType="VARCHAR" property="blogInfo" />
+      <result column="blog_popular" jdbcType="BIGINT" property="blogPopular" />
+      <result column="source_from" jdbcType="VARCHAR" property="sourceFrom" />
+    </collection>
+  </resultMap>
+  <sql id="Blog_Column_list">
+    b.blog_id, b.user_id, b.blog_status, b.blog_type, b.series_id, b.blog_title, b.blog_intro, b.blog_views,
+    b.blog_comment_count, b.blog_create_time, b.blog_update_time, b.blog_like_count, b.blog_media,
+    b.blog_tag, b.blog_info, b.blog_popular,'blog' as source_from
+  </sql>
+  <select id="selectSeriesBlogByBlogExample" parameterType="com.hly.march2.entity.BlogExample" resultMap="SeriesBlogResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Series_Column_List" />
+    ,
+    <include refid="Blog_Column_list" />
+    ,
+    <include refid="User_Column_list" />
+    from blog_series as s RIGHT OUTER JOIN(
+    SELECT *
+    FROM blog
+    <if test="_parameter != null">
+      <include refid="Blog_Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    )as b on b.series_id=s.series_id
+    LEFT OUTER JOIN `user` as u on u.user_id= s.user_id
+  </select>
+</mapper>

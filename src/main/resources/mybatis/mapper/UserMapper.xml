@@ -1,0 +1,670 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hly.march2.dao.UserMapper">
+  <resultMap id="BaseResultMap" type="com.hly.march2.entity.User">
+    <id column="user_id" jdbcType="BIGINT" property="userId" />
+    <result column="user_ip" jdbcType="VARCHAR" property="userIp" />
+    <result column="user_name" jdbcType="VARCHAR" property="userName" />
+    <result column="user_password" jdbcType="VARCHAR" property="userPassword" />
+    <result column="user_email" jdbcType="VARCHAR" property="userEmail" />
+    <result column="user_profile_pic" jdbcType="VARCHAR" property="userProfilePic" />
+    <result column="user_credit" jdbcType="INTEGER" property="userCredit" />
+    <result column="user_rights" jdbcType="INTEGER" property="userRights" />
+    <result column="user_register_time" jdbcType="TIMESTAMP" property="userRegisterTime" />
+    <result column="user_birthday" jdbcType="DATE" property="userBirthday" />
+    <result column="user_age" jdbcType="INTEGER" property="userAge" />
+    <result column="user_telephone_number" jdbcType="VARCHAR" property="userTelephoneNumber" />
+    <result column="user_nickname" jdbcType="VARCHAR" property="userNickname" />
+    <result column="user_last_login_time" jdbcType="TIMESTAMP" property="userLastLoginTime" />
+    <result column="account_status" jdbcType="INTEGER" property="accountStatus" />
+    <result column="salt" jdbcType="VARCHAR" property="salt" />
+    <result column="user_session" jdbcType="VARCHAR" property="userSession" />
+    <result column="user_config" jdbcType="VARCHAR" property="userConfig" />
+    <result column="user_sex" jdbcType="VARCHAR" property="userSex" />
+    <result column="user_motto" jdbcType="VARCHAR" property="userMotto" />
+    <result column="user_bg" jdbcType="VARCHAR" property="userBg" />
+    <result column="github_link" jdbcType="VARCHAR" property="githubLink" />
+    <result column="weibo_link" jdbcType="VARCHAR" property="weiboLink" />
+    <result column="qq_link" jdbcType="VARCHAR" property="qqLink" />
+    <result column="wechat_link" jdbcType="VARCHAR" property="wechatLink" />
+    <result column="email_link" jdbcType="VARCHAR" property="emailLink" />
+    <result column="csdn_link" jdbcType="VARCHAR" property="csdnLink" />
+    <result column="other_link" jdbcType="VARCHAR" property="otherLink" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    user_id, user_ip, user_name, user_password, user_email, user_profile_pic, user_credit, 
+    user_rights, user_register_time, user_birthday, user_age, user_telephone_number, 
+    user_nickname, user_last_login_time, account_status, salt, user_session, user_config, 
+    user_sex, user_motto, user_bg, github_link, weibo_link, qq_link, wechat_link, email_link, 
+    csdn_link, other_link
+  </sql>
+  <select id="selectByExample" parameterType="com.hly.march2.entity.UserExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from user
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from user
+    where user_id = #{userId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from user
+    where user_id = #{userId,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.hly.march2.entity.UserExample">
+    delete from user
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.hly.march2.entity.User">
+    insert into user (user_id, user_ip, user_name, 
+      user_password, user_email, user_profile_pic, 
+      user_credit, user_rights, user_register_time, 
+      user_birthday, user_age, user_telephone_number, 
+      user_nickname, user_last_login_time, account_status, 
+      salt, user_session, user_config, 
+      user_sex, user_motto, user_bg, 
+      github_link, weibo_link, qq_link, 
+      wechat_link, email_link, csdn_link, 
+      other_link)
+    values (#{userId,jdbcType=BIGINT}, #{userIp,jdbcType=VARCHAR}, #{userName,jdbcType=VARCHAR}, 
+      #{userPassword,jdbcType=VARCHAR}, #{userEmail,jdbcType=VARCHAR}, #{userProfilePic,jdbcType=VARCHAR}, 
+      #{userCredit,jdbcType=INTEGER}, #{userRights,jdbcType=INTEGER}, #{userRegisterTime,jdbcType=TIMESTAMP}, 
+      #{userBirthday,jdbcType=DATE}, #{userAge,jdbcType=INTEGER}, #{userTelephoneNumber,jdbcType=VARCHAR}, 
+      #{userNickname,jdbcType=VARCHAR}, #{userLastLoginTime,jdbcType=TIMESTAMP}, #{accountStatus,jdbcType=INTEGER}, 
+      #{salt,jdbcType=VARCHAR}, #{userSession,jdbcType=VARCHAR}, #{userConfig,jdbcType=VARCHAR}, 
+      #{userSex,jdbcType=VARCHAR}, #{userMotto,jdbcType=VARCHAR}, #{userBg,jdbcType=VARCHAR}, 
+      #{githubLink,jdbcType=VARCHAR}, #{weiboLink,jdbcType=VARCHAR}, #{qqLink,jdbcType=VARCHAR}, 
+      #{wechatLink,jdbcType=VARCHAR}, #{emailLink,jdbcType=VARCHAR}, #{csdnLink,jdbcType=VARCHAR}, 
+      #{otherLink,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.hly.march2.entity.User">
+    insert into user
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="userIp != null">
+        user_ip,
+      </if>
+      <if test="userName != null">
+        user_name,
+      </if>
+      <if test="userPassword != null">
+        user_password,
+      </if>
+      <if test="userEmail != null">
+        user_email,
+      </if>
+      <if test="userProfilePic != null">
+        user_profile_pic,
+      </if>
+      <if test="userCredit != null">
+        user_credit,
+      </if>
+      <if test="userRights != null">
+        user_rights,
+      </if>
+      <if test="userRegisterTime != null">
+        user_register_time,
+      </if>
+      <if test="userBirthday != null">
+        user_birthday,
+      </if>
+      <if test="userAge != null">
+        user_age,
+      </if>
+      <if test="userTelephoneNumber != null">
+        user_telephone_number,
+      </if>
+      <if test="userNickname != null">
+        user_nickname,
+      </if>
+      <if test="userLastLoginTime != null">
+        user_last_login_time,
+      </if>
+      <if test="accountStatus != null">
+        account_status,
+      </if>
+      <if test="salt != null">
+        salt,
+      </if>
+      <if test="userSession != null">
+        user_session,
+      </if>
+      <if test="userConfig != null">
+        user_config,
+      </if>
+      <if test="userSex != null">
+        user_sex,
+      </if>
+      <if test="userMotto != null">
+        user_motto,
+      </if>
+      <if test="userBg != null">
+        user_bg,
+      </if>
+      <if test="githubLink != null">
+        github_link,
+      </if>
+      <if test="weiboLink != null">
+        weibo_link,
+      </if>
+      <if test="qqLink != null">
+        qq_link,
+      </if>
+      <if test="wechatLink != null">
+        wechat_link,
+      </if>
+      <if test="emailLink != null">
+        email_link,
+      </if>
+      <if test="csdnLink != null">
+        csdn_link,
+      </if>
+      <if test="otherLink != null">
+        other_link,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="userId != null">
+        #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="userIp != null">
+        #{userIp,jdbcType=VARCHAR},
+      </if>
+      <if test="userName != null">
+        #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="userPassword != null">
+        #{userPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="userEmail != null">
+        #{userEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="userProfilePic != null">
+        #{userProfilePic,jdbcType=VARCHAR},
+      </if>
+      <if test="userCredit != null">
+        #{userCredit,jdbcType=INTEGER},
+      </if>
+      <if test="userRights != null">
+        #{userRights,jdbcType=INTEGER},
+      </if>
+      <if test="userRegisterTime != null">
+        #{userRegisterTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userBirthday != null">
+        #{userBirthday,jdbcType=DATE},
+      </if>
+      <if test="userAge != null">
+        #{userAge,jdbcType=INTEGER},
+      </if>
+      <if test="userTelephoneNumber != null">
+        #{userTelephoneNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="userNickname != null">
+        #{userNickname,jdbcType=VARCHAR},
+      </if>
+      <if test="userLastLoginTime != null">
+        #{userLastLoginTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="accountStatus != null">
+        #{accountStatus,jdbcType=INTEGER},
+      </if>
+      <if test="salt != null">
+        #{salt,jdbcType=VARCHAR},
+      </if>
+      <if test="userSession != null">
+        #{userSession,jdbcType=VARCHAR},
+      </if>
+      <if test="userConfig != null">
+        #{userConfig,jdbcType=VARCHAR},
+      </if>
+      <if test="userSex != null">
+        #{userSex,jdbcType=VARCHAR},
+      </if>
+      <if test="userMotto != null">
+        #{userMotto,jdbcType=VARCHAR},
+      </if>
+      <if test="userBg != null">
+        #{userBg,jdbcType=VARCHAR},
+      </if>
+      <if test="githubLink != null">
+        #{githubLink,jdbcType=VARCHAR},
+      </if>
+      <if test="weiboLink != null">
+        #{weiboLink,jdbcType=VARCHAR},
+      </if>
+      <if test="qqLink != null">
+        #{qqLink,jdbcType=VARCHAR},
+      </if>
+      <if test="wechatLink != null">
+        #{wechatLink,jdbcType=VARCHAR},
+      </if>
+      <if test="emailLink != null">
+        #{emailLink,jdbcType=VARCHAR},
+      </if>
+      <if test="csdnLink != null">
+        #{csdnLink,jdbcType=VARCHAR},
+      </if>
+      <if test="otherLink != null">
+        #{otherLink,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.hly.march2.entity.UserExample" resultType="java.lang.Long">
+    select count(*) from user
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update user
+    <set>
+      <if test="record.userId != null">
+        user_id = #{record.userId,jdbcType=BIGINT},
+      </if>
+      <if test="record.userIp != null">
+        user_ip = #{record.userIp,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userName != null">
+        user_name = #{record.userName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userPassword != null">
+        user_password = #{record.userPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userEmail != null">
+        user_email = #{record.userEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userProfilePic != null">
+        user_profile_pic = #{record.userProfilePic,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userCredit != null">
+        user_credit = #{record.userCredit,jdbcType=INTEGER},
+      </if>
+      <if test="record.userRights != null">
+        user_rights = #{record.userRights,jdbcType=INTEGER},
+      </if>
+      <if test="record.userRegisterTime != null">
+        user_register_time = #{record.userRegisterTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.userBirthday != null">
+        user_birthday = #{record.userBirthday,jdbcType=DATE},
+      </if>
+      <if test="record.userAge != null">
+        user_age = #{record.userAge,jdbcType=INTEGER},
+      </if>
+      <if test="record.userTelephoneNumber != null">
+        user_telephone_number = #{record.userTelephoneNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userNickname != null">
+        user_nickname = #{record.userNickname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userLastLoginTime != null">
+        user_last_login_time = #{record.userLastLoginTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.accountStatus != null">
+        account_status = #{record.accountStatus,jdbcType=INTEGER},
+      </if>
+      <if test="record.salt != null">
+        salt = #{record.salt,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userSession != null">
+        user_session = #{record.userSession,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userConfig != null">
+        user_config = #{record.userConfig,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userSex != null">
+        user_sex = #{record.userSex,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userMotto != null">
+        user_motto = #{record.userMotto,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userBg != null">
+        user_bg = #{record.userBg,jdbcType=VARCHAR},
+      </if>
+      <if test="record.githubLink != null">
+        github_link = #{record.githubLink,jdbcType=VARCHAR},
+      </if>
+      <if test="record.weiboLink != null">
+        weibo_link = #{record.weiboLink,jdbcType=VARCHAR},
+      </if>
+      <if test="record.qqLink != null">
+        qq_link = #{record.qqLink,jdbcType=VARCHAR},
+      </if>
+      <if test="record.wechatLink != null">
+        wechat_link = #{record.wechatLink,jdbcType=VARCHAR},
+      </if>
+      <if test="record.emailLink != null">
+        email_link = #{record.emailLink,jdbcType=VARCHAR},
+      </if>
+      <if test="record.csdnLink != null">
+        csdn_link = #{record.csdnLink,jdbcType=VARCHAR},
+      </if>
+      <if test="record.otherLink != null">
+        other_link = #{record.otherLink,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update user
+    set user_id = #{record.userId,jdbcType=BIGINT},
+      user_ip = #{record.userIp,jdbcType=VARCHAR},
+      user_name = #{record.userName,jdbcType=VARCHAR},
+      user_password = #{record.userPassword,jdbcType=VARCHAR},
+      user_email = #{record.userEmail,jdbcType=VARCHAR},
+      user_profile_pic = #{record.userProfilePic,jdbcType=VARCHAR},
+      user_credit = #{record.userCredit,jdbcType=INTEGER},
+      user_rights = #{record.userRights,jdbcType=INTEGER},
+      user_register_time = #{record.userRegisterTime,jdbcType=TIMESTAMP},
+      user_birthday = #{record.userBirthday,jdbcType=DATE},
+      user_age = #{record.userAge,jdbcType=INTEGER},
+      user_telephone_number = #{record.userTelephoneNumber,jdbcType=VARCHAR},
+      user_nickname = #{record.userNickname,jdbcType=VARCHAR},
+      user_last_login_time = #{record.userLastLoginTime,jdbcType=TIMESTAMP},
+      account_status = #{record.accountStatus,jdbcType=INTEGER},
+      salt = #{record.salt,jdbcType=VARCHAR},
+      user_session = #{record.userSession,jdbcType=VARCHAR},
+      user_config = #{record.userConfig,jdbcType=VARCHAR},
+      user_sex = #{record.userSex,jdbcType=VARCHAR},
+      user_motto = #{record.userMotto,jdbcType=VARCHAR},
+      user_bg = #{record.userBg,jdbcType=VARCHAR},
+      github_link = #{record.githubLink,jdbcType=VARCHAR},
+      weibo_link = #{record.weiboLink,jdbcType=VARCHAR},
+      qq_link = #{record.qqLink,jdbcType=VARCHAR},
+      wechat_link = #{record.wechatLink,jdbcType=VARCHAR},
+      email_link = #{record.emailLink,jdbcType=VARCHAR},
+      csdn_link = #{record.csdnLink,jdbcType=VARCHAR},
+      other_link = #{record.otherLink,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hly.march2.entity.User">
+    update user
+    <set>
+      <if test="userIp != null">
+        user_ip = #{userIp,jdbcType=VARCHAR},
+      </if>
+      <if test="userName != null">
+        user_name = #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="userPassword != null">
+        user_password = #{userPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="userEmail != null">
+        user_email = #{userEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="userProfilePic != null">
+        user_profile_pic = #{userProfilePic,jdbcType=VARCHAR},
+      </if>
+      <if test="userCredit != null">
+        user_credit = #{userCredit,jdbcType=INTEGER},
+      </if>
+      <if test="userRights != null">
+        user_rights = #{userRights,jdbcType=INTEGER},
+      </if>
+      <if test="userRegisterTime != null">
+        user_register_time = #{userRegisterTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userBirthday != null">
+        user_birthday = #{userBirthday,jdbcType=DATE},
+      </if>
+      <if test="userAge != null">
+        user_age = #{userAge,jdbcType=INTEGER},
+      </if>
+      <if test="userTelephoneNumber != null">
+        user_telephone_number = #{userTelephoneNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="userNickname != null">
+        user_nickname = #{userNickname,jdbcType=VARCHAR},
+      </if>
+      <if test="userLastLoginTime != null">
+        user_last_login_time = #{userLastLoginTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="accountStatus != null">
+        account_status = #{accountStatus,jdbcType=INTEGER},
+      </if>
+      <if test="salt != null">
+        salt = #{salt,jdbcType=VARCHAR},
+      </if>
+      <if test="userSession != null">
+        user_session = #{userSession,jdbcType=VARCHAR},
+      </if>
+      <if test="userConfig != null">
+        user_config = #{userConfig,jdbcType=VARCHAR},
+      </if>
+      <if test="userSex != null">
+        user_sex = #{userSex,jdbcType=VARCHAR},
+      </if>
+      <if test="userMotto != null">
+        user_motto = #{userMotto,jdbcType=VARCHAR},
+      </if>
+      <if test="userBg != null">
+        user_bg = #{userBg,jdbcType=VARCHAR},
+      </if>
+      <if test="githubLink != null">
+        github_link = #{githubLink,jdbcType=VARCHAR},
+      </if>
+      <if test="weiboLink != null">
+        weibo_link = #{weiboLink,jdbcType=VARCHAR},
+      </if>
+      <if test="qqLink != null">
+        qq_link = #{qqLink,jdbcType=VARCHAR},
+      </if>
+      <if test="wechatLink != null">
+        wechat_link = #{wechatLink,jdbcType=VARCHAR},
+      </if>
+      <if test="emailLink != null">
+        email_link = #{emailLink,jdbcType=VARCHAR},
+      </if>
+      <if test="csdnLink != null">
+        csdn_link = #{csdnLink,jdbcType=VARCHAR},
+      </if>
+      <if test="otherLink != null">
+        other_link = #{otherLink,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where user_id = #{userId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hly.march2.entity.User">
+    update user
+    set user_ip = #{userIp,jdbcType=VARCHAR},
+      user_name = #{userName,jdbcType=VARCHAR},
+      user_password = #{userPassword,jdbcType=VARCHAR},
+      user_email = #{userEmail,jdbcType=VARCHAR},
+      user_profile_pic = #{userProfilePic,jdbcType=VARCHAR},
+      user_credit = #{userCredit,jdbcType=INTEGER},
+      user_rights = #{userRights,jdbcType=INTEGER},
+      user_register_time = #{userRegisterTime,jdbcType=TIMESTAMP},
+      user_birthday = #{userBirthday,jdbcType=DATE},
+      user_age = #{userAge,jdbcType=INTEGER},
+      user_telephone_number = #{userTelephoneNumber,jdbcType=VARCHAR},
+      user_nickname = #{userNickname,jdbcType=VARCHAR},
+      user_last_login_time = #{userLastLoginTime,jdbcType=TIMESTAMP},
+      account_status = #{accountStatus,jdbcType=INTEGER},
+      salt = #{salt,jdbcType=VARCHAR},
+      user_session = #{userSession,jdbcType=VARCHAR},
+      user_config = #{userConfig,jdbcType=VARCHAR},
+      user_sex = #{userSex,jdbcType=VARCHAR},
+      user_motto = #{userMotto,jdbcType=VARCHAR},
+      user_bg = #{userBg,jdbcType=VARCHAR},
+      github_link = #{githubLink,jdbcType=VARCHAR},
+      weibo_link = #{weiboLink,jdbcType=VARCHAR},
+      qq_link = #{qqLink,jdbcType=VARCHAR},
+      wechat_link = #{wechatLink,jdbcType=VARCHAR},
+      email_link = #{emailLink,jdbcType=VARCHAR},
+      csdn_link = #{csdnLink,jdbcType=VARCHAR},
+      other_link = #{otherLink,jdbcType=VARCHAR}
+    where user_id = #{userId,jdbcType=BIGINT}
+  </update>
+
+
+  <!--VO-->
+
+
+
+  <!-- Count -->
+  <resultMap id="UserCountBlogResultMap" type="com.hly.march2.vo.UserBriefStatisticsVO">
+    <id column="user_id" jdbcType="BIGINT" property="userId" />
+    <result column="user_name" jdbcType="VARCHAR" property="userName" />
+    <result column="user_profile_pic" jdbcType="VARCHAR" property="userProfilePic" />
+    <result column="user_credit" jdbcType="INTEGER" property="userCredit" />
+    <result column="user_nickname" jdbcType="VARCHAR" property="userNickname" />
+    <result column="user_last_login_time" jdbcType="TIMESTAMP" property="userLastLoginTime" />
+    <result column="account_status" jdbcType="INTEGER" property="accountStatus" />
+    <result column="user_sex" jdbcType="VARCHAR" property="userSex" />
+    <result column="blog_sum" jdbcType="BIGINT" property="blogNum" />
+    <result column="like_sum" jdbcType="BIGINT" property="likeNum" />
+    <result column="comment_sum" jdbcType="BIGINT" property="commentNum" />
+    <result column="view_sum" jdbcType="BIGINT" property="viewsNum" />
+  </resultMap>
+  <sql id="User_Count_Column_List">
+    u.user_id, u.user_name,  u.user_profile_pic, u.user_credit,
+    u.user_nickname, u.user_last_login_time, u.account_status,
+    u.user_sex
+  </sql>
+  <sql id="Blog_Count_Column_List">
+    b.blog_sum, b.view_sum,  b.like_sum, b.comment_sum
+  </sql>
+  <sql id="Blog_Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+
+  <select id="countSumUserBlogByBlogExample"   parameterType="com.hly.march2.entity.BlogExample"    resultMap="UserCountBlogResultMap">
+    select
+    <include refid="User_Count_Column_List" />
+    ,
+    <include refid="Blog_Count_Column_List" />
+    from `user` as u Right OUTER JOIN  ( select count(blog_id) as blog_sum,SUM(blog_views)as view_sum,SUM(blog_like_count) as like_sum,SUM(blog_comment_count) as comment_sum,user_id FROM blog
+    <if test="_parameter != null">
+      <include refid="Blog_Example_Where_Clause" />
+    </if>
+    GROUP BY user_id) as b on b.user_id=u.user_id
+    ORDER BY b.blog_sum LIMIT 10
+  </select>
+
+  <!--Admin-->
+  <sql id="All_Column_List">
+    user_id, user_ip, user_name, user_email, user_profile_pic, user_credit,
+    user_rights, user_register_time, user_birthday, user_age, user_telephone_number,
+    user_nickname, user_last_login_time, account_status,
+    user_sex, user_motto, user_bg, github_link, weibo_link, qq_link, wechat_link, email_link,
+    csdn_link, other_link
+  </sql>
+  <select id="selectMostColumnByExample" parameterType="com.hly.march2.entity.UserExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="All_Column_List" />
+    from user
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+</mapper>

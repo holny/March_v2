@@ -1,0 +1,447 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hly.march2.dao.FileHelperMapper">
+  <resultMap id="BaseResultMap" type="com.hly.march2.entity.FileHelper">
+    <id column="file_id" jdbcType="BIGINT" property="fileId" />
+    <result column="case_id" jdbcType="BIGINT" property="caseId" />
+    <result column="user_id" jdbcType="BIGINT" property="userId" />
+    <result column="save_type" jdbcType="VARCHAR" property="saveType" />
+    <result column="file_path" jdbcType="VARCHAR" property="filePath" />
+    <result column="file_name" jdbcType="VARCHAR" property="fileName" />
+    <result column="file_suffix" jdbcType="VARCHAR" property="fileSuffix" />
+    <result column="file_size" jdbcType="BIGINT" property="fileSize" />
+    <result column="file_usage" jdbcType="VARCHAR" property="fileUsage" />
+    <result column="file_create_time" jdbcType="TIMESTAMP" property="fileCreateTime" />
+    <result column="file_status" jdbcType="INTEGER" property="fileStatus" />
+    <result column="server_path" jdbcType="VARCHAR" property="serverPath" />
+    <result column="server_key" jdbcType="VARCHAR" property="serverKey" />
+    <result column="farther_id" jdbcType="INTEGER" property="fartherId" />
+    <result column="farther_name" jdbcType="VARCHAR" property="fartherName" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.hly.march2.entity.FileHelper">
+    <result column="file_content" jdbcType="LONGVARBINARY" property="fileContent" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    file_id, case_id, user_id, save_type, file_path, file_name, file_suffix, file_size, 
+    file_usage, file_create_time, file_status, server_path, server_key, farther_id, farther_name
+  </sql>
+  <sql id="Blob_Column_List">
+    file_content
+  </sql>
+  <select id="selectByExampleWithBLOBs" parameterType="com.hly.march2.entity.FileHelperExample" resultMap="ResultMapWithBLOBs">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from file
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" parameterType="com.hly.march2.entity.FileHelperExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from file
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from file
+    where file_id = #{fileId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from file
+    where file_id = #{fileId,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.hly.march2.entity.FileHelperExample">
+    delete from file
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.hly.march2.entity.FileHelper" useGeneratedKeys="true" keyProperty="fileId">
+    insert into file (file_id, case_id, user_id, 
+      save_type, file_path, file_name, 
+      file_suffix, file_size, file_usage, 
+      file_create_time, file_status, server_path, 
+      server_key, farther_id, farther_name, 
+      file_content)
+    values (#{fileId,jdbcType=BIGINT}, #{caseId,jdbcType=BIGINT}, #{userId,jdbcType=BIGINT}, 
+      #{saveType,jdbcType=VARCHAR}, #{filePath,jdbcType=VARCHAR}, #{fileName,jdbcType=VARCHAR}, 
+      #{fileSuffix,jdbcType=VARCHAR}, #{fileSize,jdbcType=BIGINT}, #{fileUsage,jdbcType=VARCHAR}, 
+      #{fileCreateTime,jdbcType=TIMESTAMP}, #{fileStatus,jdbcType=INTEGER}, #{serverPath,jdbcType=VARCHAR}, 
+      #{serverKey,jdbcType=VARCHAR}, #{fartherId,jdbcType=INTEGER}, #{fartherName,jdbcType=VARCHAR}, 
+      #{fileContent,jdbcType=LONGVARBINARY})
+  </insert>
+  <insert id="insertSelective" parameterType="com.hly.march2.entity.FileHelper"  useGeneratedKeys="true" keyProperty="fileId">
+    insert into file
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="fileId != null">
+        file_id,
+      </if>
+      <if test="caseId != null">
+        case_id,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="saveType != null">
+        save_type,
+      </if>
+      <if test="filePath != null">
+        file_path,
+      </if>
+      <if test="fileName != null">
+        file_name,
+      </if>
+      <if test="fileSuffix != null">
+        file_suffix,
+      </if>
+      <if test="fileSize != null">
+        file_size,
+      </if>
+      <if test="fileUsage != null">
+        file_usage,
+      </if>
+      <if test="fileCreateTime != null">
+        file_create_time,
+      </if>
+      <if test="fileStatus != null">
+        file_status,
+      </if>
+      <if test="serverPath != null">
+        server_path,
+      </if>
+      <if test="serverKey != null">
+        server_key,
+      </if>
+      <if test="fartherId != null">
+        farther_id,
+      </if>
+      <if test="fartherName != null">
+        farther_name,
+      </if>
+      <if test="fileContent != null">
+        file_content,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="fileId != null">
+        #{fileId,jdbcType=BIGINT},
+      </if>
+      <if test="caseId != null">
+        #{caseId,jdbcType=BIGINT},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="saveType != null">
+        #{saveType,jdbcType=VARCHAR},
+      </if>
+      <if test="filePath != null">
+        #{filePath,jdbcType=VARCHAR},
+      </if>
+      <if test="fileName != null">
+        #{fileName,jdbcType=VARCHAR},
+      </if>
+      <if test="fileSuffix != null">
+        #{fileSuffix,jdbcType=VARCHAR},
+      </if>
+      <if test="fileSize != null">
+        #{fileSize,jdbcType=BIGINT},
+      </if>
+      <if test="fileUsage != null">
+        #{fileUsage,jdbcType=VARCHAR},
+      </if>
+      <if test="fileCreateTime != null">
+        #{fileCreateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="fileStatus != null">
+        #{fileStatus,jdbcType=INTEGER},
+      </if>
+      <if test="serverPath != null">
+        #{serverPath,jdbcType=VARCHAR},
+      </if>
+      <if test="serverKey != null">
+        #{serverKey,jdbcType=VARCHAR},
+      </if>
+      <if test="fartherId != null">
+        #{fartherId,jdbcType=INTEGER},
+      </if>
+      <if test="fartherName != null">
+        #{fartherName,jdbcType=VARCHAR},
+      </if>
+      <if test="fileContent != null">
+        #{fileContent,jdbcType=LONGVARBINARY},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.hly.march2.entity.FileHelperExample" resultType="java.lang.Long">
+    select count(*) from file
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update file
+    <set>
+      <if test="record.fileId != null">
+        file_id = #{record.fileId,jdbcType=BIGINT},
+      </if>
+      <if test="record.caseId != null">
+        case_id = #{record.caseId,jdbcType=BIGINT},
+      </if>
+      <if test="record.userId != null">
+        user_id = #{record.userId,jdbcType=BIGINT},
+      </if>
+      <if test="record.saveType != null">
+        save_type = #{record.saveType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.filePath != null">
+        file_path = #{record.filePath,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fileName != null">
+        file_name = #{record.fileName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fileSuffix != null">
+        file_suffix = #{record.fileSuffix,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fileSize != null">
+        file_size = #{record.fileSize,jdbcType=BIGINT},
+      </if>
+      <if test="record.fileUsage != null">
+        file_usage = #{record.fileUsage,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fileCreateTime != null">
+        file_create_time = #{record.fileCreateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.fileStatus != null">
+        file_status = #{record.fileStatus,jdbcType=INTEGER},
+      </if>
+      <if test="record.serverPath != null">
+        server_path = #{record.serverPath,jdbcType=VARCHAR},
+      </if>
+      <if test="record.serverKey != null">
+        server_key = #{record.serverKey,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fartherId != null">
+        farther_id = #{record.fartherId,jdbcType=INTEGER},
+      </if>
+      <if test="record.fartherName != null">
+        farther_name = #{record.fartherName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fileContent != null">
+        file_content = #{record.fileContent,jdbcType=LONGVARBINARY},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map">
+    update file
+    set file_id = #{record.fileId,jdbcType=BIGINT},
+      case_id = #{record.caseId,jdbcType=BIGINT},
+      user_id = #{record.userId,jdbcType=BIGINT},
+      save_type = #{record.saveType,jdbcType=VARCHAR},
+      file_path = #{record.filePath,jdbcType=VARCHAR},
+      file_name = #{record.fileName,jdbcType=VARCHAR},
+      file_suffix = #{record.fileSuffix,jdbcType=VARCHAR},
+      file_size = #{record.fileSize,jdbcType=BIGINT},
+      file_usage = #{record.fileUsage,jdbcType=VARCHAR},
+      file_create_time = #{record.fileCreateTime,jdbcType=TIMESTAMP},
+      file_status = #{record.fileStatus,jdbcType=INTEGER},
+      server_path = #{record.serverPath,jdbcType=VARCHAR},
+      server_key = #{record.serverKey,jdbcType=VARCHAR},
+      farther_id = #{record.fartherId,jdbcType=INTEGER},
+      farther_name = #{record.fartherName,jdbcType=VARCHAR},
+      file_content = #{record.fileContent,jdbcType=LONGVARBINARY}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update file
+    set file_id = #{record.fileId,jdbcType=BIGINT},
+      case_id = #{record.caseId,jdbcType=BIGINT},
+      user_id = #{record.userId,jdbcType=BIGINT},
+      save_type = #{record.saveType,jdbcType=VARCHAR},
+      file_path = #{record.filePath,jdbcType=VARCHAR},
+      file_name = #{record.fileName,jdbcType=VARCHAR},
+      file_suffix = #{record.fileSuffix,jdbcType=VARCHAR},
+      file_size = #{record.fileSize,jdbcType=BIGINT},
+      file_usage = #{record.fileUsage,jdbcType=VARCHAR},
+      file_create_time = #{record.fileCreateTime,jdbcType=TIMESTAMP},
+      file_status = #{record.fileStatus,jdbcType=INTEGER},
+      server_path = #{record.serverPath,jdbcType=VARCHAR},
+      server_key = #{record.serverKey,jdbcType=VARCHAR},
+      farther_id = #{record.fartherId,jdbcType=INTEGER},
+      farther_name = #{record.fartherName,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hly.march2.entity.FileHelper">
+    update file
+    <set>
+      <if test="caseId != null">
+        case_id = #{caseId,jdbcType=BIGINT},
+      </if>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="saveType != null">
+        save_type = #{saveType,jdbcType=VARCHAR},
+      </if>
+      <if test="filePath != null">
+        file_path = #{filePath,jdbcType=VARCHAR},
+      </if>
+      <if test="fileName != null">
+        file_name = #{fileName,jdbcType=VARCHAR},
+      </if>
+      <if test="fileSuffix != null">
+        file_suffix = #{fileSuffix,jdbcType=VARCHAR},
+      </if>
+      <if test="fileSize != null">
+        file_size = #{fileSize,jdbcType=BIGINT},
+      </if>
+      <if test="fileUsage != null">
+        file_usage = #{fileUsage,jdbcType=VARCHAR},
+      </if>
+      <if test="fileCreateTime != null">
+        file_create_time = #{fileCreateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="fileStatus != null">
+        file_status = #{fileStatus,jdbcType=INTEGER},
+      </if>
+      <if test="serverPath != null">
+        server_path = #{serverPath,jdbcType=VARCHAR},
+      </if>
+      <if test="serverKey != null">
+        server_key = #{serverKey,jdbcType=VARCHAR},
+      </if>
+      <if test="fartherId != null">
+        farther_id = #{fartherId,jdbcType=INTEGER},
+      </if>
+      <if test="fartherName != null">
+        farther_name = #{fartherName,jdbcType=VARCHAR},
+      </if>
+      <if test="fileContent != null">
+        file_content = #{fileContent,jdbcType=LONGVARBINARY},
+      </if>
+    </set>
+    where file_id = #{fileId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.hly.march2.entity.FileHelper">
+    update file
+    set case_id = #{caseId,jdbcType=BIGINT},
+      user_id = #{userId,jdbcType=BIGINT},
+      save_type = #{saveType,jdbcType=VARCHAR},
+      file_path = #{filePath,jdbcType=VARCHAR},
+      file_name = #{fileName,jdbcType=VARCHAR},
+      file_suffix = #{fileSuffix,jdbcType=VARCHAR},
+      file_size = #{fileSize,jdbcType=BIGINT},
+      file_usage = #{fileUsage,jdbcType=VARCHAR},
+      file_create_time = #{fileCreateTime,jdbcType=TIMESTAMP},
+      file_status = #{fileStatus,jdbcType=INTEGER},
+      server_path = #{serverPath,jdbcType=VARCHAR},
+      server_key = #{serverKey,jdbcType=VARCHAR},
+      farther_id = #{fartherId,jdbcType=INTEGER},
+      farther_name = #{fartherName,jdbcType=VARCHAR},
+      file_content = #{fileContent,jdbcType=LONGVARBINARY}
+    where file_id = #{fileId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hly.march2.entity.FileHelper">
+    update file
+    set case_id = #{caseId,jdbcType=BIGINT},
+      user_id = #{userId,jdbcType=BIGINT},
+      save_type = #{saveType,jdbcType=VARCHAR},
+      file_path = #{filePath,jdbcType=VARCHAR},
+      file_name = #{fileName,jdbcType=VARCHAR},
+      file_suffix = #{fileSuffix,jdbcType=VARCHAR},
+      file_size = #{fileSize,jdbcType=BIGINT},
+      file_usage = #{fileUsage,jdbcType=VARCHAR},
+      file_create_time = #{fileCreateTime,jdbcType=TIMESTAMP},
+      file_status = #{fileStatus,jdbcType=INTEGER},
+      server_path = #{serverPath,jdbcType=VARCHAR},
+      server_key = #{serverKey,jdbcType=VARCHAR},
+      farther_id = #{fartherId,jdbcType=INTEGER},
+      farther_name = #{fartherName,jdbcType=VARCHAR}
+    where file_id = #{fileId,jdbcType=BIGINT}
+  </update>
+</mapper>

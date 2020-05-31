@@ -1,0 +1,602 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hly.march2.dao.DraftMapper">
+  <resultMap id="BaseResultMap" type="com.hly.march2.entity.Draft">
+    <id column="blog_id" jdbcType="BIGINT" property="blogId" />
+    <result column="user_id" jdbcType="BIGINT" property="userId" />
+    <result column="blog_title" jdbcType="VARCHAR" property="blogTitle" />
+    <result column="blog_status" jdbcType="INTEGER" property="blogStatus" />
+    <result column="blog_type" jdbcType="INTEGER" property="blogType" />
+    <result column="series_id" jdbcType="BIGINT" property="seriesId" />
+    <result column="blog_create_time" jdbcType="TIMESTAMP" property="blogCreateTime" />
+    <result column="blog_update_time" jdbcType="TIMESTAMP" property="blogUpdateTime" />
+    <result column="blog_intro" jdbcType="VARCHAR" property="blogIntro" />
+    <result column="blog_media" jdbcType="VARCHAR" property="blogMedia" />
+    <result column="blog_tag" jdbcType="VARCHAR" property="blogTag" />
+    <result column="blog_info" jdbcType="VARCHAR" property="blogInfo" />
+    <result column="blog_version" jdbcType="BIGINT" property="blogVersion" />
+    <result column="original_blog_id" jdbcType="BIGINT" property="originalBlogId" />
+    <result column="source_from" jdbcType="VARCHAR" property="sourceFrom" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.hly.march2.entity.Draft">
+    <result column="blog_content" jdbcType="LONGVARCHAR" property="blogContent" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    blog_id, user_id, blog_title, blog_status, blog_type, series_id, blog_create_time, 
+    blog_update_time, blog_intro, blog_media, blog_tag, blog_info, blog_version, original_blog_id,'draft' as source_from
+  </sql>
+  <sql id="Blob_Column_List">
+    blog_content
+  </sql>
+  <select id="selectByExampleWithBLOBs" parameterType="com.hly.march2.entity.DraftExample" resultMap="ResultMapWithBLOBs">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from blog_draft
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" parameterType="com.hly.march2.entity.DraftExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from blog_draft
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from blog_draft
+    where blog_id = #{blogId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from blog_draft
+    where blog_id = #{blogId,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.hly.march2.entity.DraftExample">
+    delete from blog_draft
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <!-- 这里用useGeneratedKeys返回插入后的主键ID时，如果mapper层用@Param标注了属性，这里的keyProperty也需要加上,
+      获取返回值不要在service层获取,到controller获取，因为service事务没完成-->
+  <insert id="insert" parameterType="com.hly.march2.entity.Draft"  useGeneratedKeys="true" keyProperty="blogId">
+    insert into blog_draft (blog_id, user_id, blog_title, 
+      blog_status, blog_type, series_id, 
+      blog_create_time, blog_update_time, blog_intro, 
+      blog_media, blog_tag, blog_info, 
+      blog_version, original_blog_id, blog_content
+      )
+    values (#{blogId,jdbcType=BIGINT}, #{userId,jdbcType=BIGINT}, #{blogTitle,jdbcType=VARCHAR}, 
+      #{blogStatus,jdbcType=INTEGER}, #{blogType,jdbcType=INTEGER}, #{seriesId,jdbcType=BIGINT},
+      #{blogCreateTime,jdbcType=TIMESTAMP}, #{blogUpdateTime,jdbcType=TIMESTAMP}, #{blogIntro,jdbcType=VARCHAR}, 
+      #{blogMedia,jdbcType=VARCHAR}, #{blogTag,jdbcType=VARCHAR}, #{blogInfo,jdbcType=VARCHAR}, 
+      #{blogVersion,jdbcType=BIGINT}, #{originalBlogId,jdbcType=BIGINT}, #{blogContent,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.hly.march2.entity.Draft" useGeneratedKeys="true" keyProperty="blogId">
+    insert into blog_draft
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="blogId != null">
+        blog_id,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="blogTitle != null">
+        blog_title,
+      </if>
+      <if test="blogStatus != null">
+        blog_status,
+      </if>
+      <if test="blogType != null">
+        blog_type,
+      </if>
+      <if test="seriesId != null">
+        series_id,
+      </if>
+      <if test="blogCreateTime != null">
+        blog_create_time,
+      </if>
+      <if test="blogUpdateTime != null">
+        blog_update_time,
+      </if>
+      <if test="blogIntro != null">
+        blog_intro,
+      </if>
+      <if test="blogMedia != null">
+        blog_media,
+      </if>
+      <if test="blogTag != null">
+        blog_tag,
+      </if>
+      <if test="blogInfo != null">
+        blog_info,
+      </if>
+      <if test="blogVersion != null">
+        blog_version,
+      </if>
+      <if test="originalBlogId != null">
+        original_blog_id,
+      </if>
+      <if test="blogContent != null">
+        blog_content,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="blogId != null">
+        #{blogId,jdbcType=BIGINT},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="blogTitle != null">
+        #{blogTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="blogStatus != null">
+        #{blogStatus,jdbcType=INTEGER},
+      </if>
+      <if test="blogType != null">
+        #{blogType,jdbcType=INTEGER},
+      </if>
+      <if test="seriesId != null">
+        #{seriesId,jdbcType=BIGINT},
+      </if>
+      <if test="blogCreateTime != null">
+        #{blogCreateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="blogUpdateTime != null">
+        #{blogUpdateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="blogIntro != null">
+        #{blogIntro,jdbcType=VARCHAR},
+      </if>
+      <if test="blogMedia != null">
+        #{blogMedia,jdbcType=VARCHAR},
+      </if>
+      <if test="blogTag != null">
+        #{blogTag,jdbcType=VARCHAR},
+      </if>
+      <if test="blogInfo != null">
+        #{blogInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="blogVersion != null">
+        #{blogVersion,jdbcType=BIGINT},
+      </if>
+      <if test="originalBlogId != null">
+        #{originalBlogId,jdbcType=BIGINT},
+      </if>
+      <if test="blogContent != null">
+        #{blogContent,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.hly.march2.entity.DraftExample" resultType="java.lang.Long">
+    select count(*) from blog_draft
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update blog_draft
+    <set>
+      <if test="record.blogId != null">
+        blog_id = #{record.blogId,jdbcType=BIGINT},
+      </if>
+      <if test="record.userId != null">
+        user_id = #{record.userId,jdbcType=BIGINT},
+      </if>
+      <if test="record.blogTitle != null">
+        blog_title = #{record.blogTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="record.blogStatus != null">
+        blog_status = #{record.blogStatus,jdbcType=INTEGER},
+      </if>
+      <if test="record.blogType != null">
+        blog_type = #{record.blogType,jdbcType=INTEGER},
+      </if>
+      <if test="record.seriesId != null">
+        series_id = #{record.seriesId,jdbcType=BIGINT},
+      </if>
+      <if test="record.blogCreateTime != null">
+        blog_create_time = #{record.blogCreateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.blogUpdateTime != null">
+        blog_update_time = #{record.blogUpdateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.blogIntro != null">
+        blog_intro = #{record.blogIntro,jdbcType=VARCHAR},
+      </if>
+      <if test="record.blogMedia != null">
+        blog_media = #{record.blogMedia,jdbcType=VARCHAR},
+      </if>
+      <if test="record.blogTag != null">
+        blog_tag = #{record.blogTag,jdbcType=VARCHAR},
+      </if>
+      <if test="record.blogInfo != null">
+        blog_info = #{record.blogInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.blogVersion != null">
+        blog_version = #{record.blogVersion,jdbcType=BIGINT},
+      </if>
+      <if test="record.originalBlogId != null">
+        original_blog_id = #{record.originalBlogId,jdbcType=BIGINT},
+      </if>
+      <if test="record.blogContent != null">
+        blog_content = #{record.blogContent,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map">
+    update blog_draft
+    set blog_id = #{record.blogId,jdbcType=BIGINT},
+      user_id = #{record.userId,jdbcType=BIGINT},
+      blog_title = #{record.blogTitle,jdbcType=VARCHAR},
+      blog_status = #{record.blogStatus,jdbcType=INTEGER},
+      blog_type = #{record.blogType,jdbcType=INTEGER},
+      series_id = #{record.seriesId,jdbcType=BIGINT},
+      blog_create_time = #{record.blogCreateTime,jdbcType=TIMESTAMP},
+      blog_update_time = #{record.blogUpdateTime,jdbcType=TIMESTAMP},
+      blog_intro = #{record.blogIntro,jdbcType=VARCHAR},
+      blog_media = #{record.blogMedia,jdbcType=VARCHAR},
+      blog_tag = #{record.blogTag,jdbcType=VARCHAR},
+      blog_info = #{record.blogInfo,jdbcType=VARCHAR},
+      blog_version = #{record.blogVersion,jdbcType=BIGINT},
+      original_blog_id = #{record.originalBlogId,jdbcType=BIGINT},
+      blog_content = #{record.blogContent,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update blog_draft
+    set blog_id = #{record.blogId,jdbcType=BIGINT},
+      user_id = #{record.userId,jdbcType=BIGINT},
+      blog_title = #{record.blogTitle,jdbcType=VARCHAR},
+      blog_status = #{record.blogStatus,jdbcType=INTEGER},
+      blog_type = #{record.blogType,jdbcType=INTEGER},
+      series_id = #{record.seriesId,jdbcType=BIGINT},
+      blog_create_time = #{record.blogCreateTime,jdbcType=TIMESTAMP},
+      blog_update_time = #{record.blogUpdateTime,jdbcType=TIMESTAMP},
+      blog_intro = #{record.blogIntro,jdbcType=VARCHAR},
+      blog_media = #{record.blogMedia,jdbcType=VARCHAR},
+      blog_tag = #{record.blogTag,jdbcType=VARCHAR},
+      blog_info = #{record.blogInfo,jdbcType=VARCHAR},
+      blog_version = #{record.blogVersion,jdbcType=BIGINT},
+      original_blog_id = #{record.originalBlogId,jdbcType=BIGINT}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hly.march2.entity.Draft">
+    update blog_draft
+    <set>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="blogTitle != null">
+        blog_title = #{blogTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="blogStatus != null">
+        blog_status = #{blogStatus,jdbcType=INTEGER},
+      </if>
+      <if test="blogType != null">
+        blog_type = #{blogType,jdbcType=INTEGER},
+      </if>
+      <if test="seriesId != null">
+        series_id = #{seriesId,jdbcType=BIGINT},
+      </if>
+      <if test="blogCreateTime != null">
+        blog_create_time = #{blogCreateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="blogUpdateTime != null">
+        blog_update_time = #{blogUpdateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="blogIntro != null">
+        blog_intro = #{blogIntro,jdbcType=VARCHAR},
+      </if>
+      <if test="blogMedia != null">
+        blog_media = #{blogMedia,jdbcType=VARCHAR},
+      </if>
+      <if test="blogTag != null">
+        blog_tag = #{blogTag,jdbcType=VARCHAR},
+      </if>
+      <if test="blogInfo != null">
+        blog_info = #{blogInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="blogVersion != null">
+        blog_version = #{blogVersion,jdbcType=BIGINT},
+      </if>
+      <if test="originalBlogId != null">
+        original_blog_id = #{originalBlogId,jdbcType=BIGINT},
+      </if>
+      <if test="blogContent != null">
+        blog_content = #{blogContent,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where blog_id = #{blogId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.hly.march2.entity.Draft">
+    update blog_draft
+    set user_id = #{userId,jdbcType=BIGINT},
+      blog_title = #{blogTitle,jdbcType=VARCHAR},
+      blog_status = #{blogStatus,jdbcType=INTEGER},
+      blog_type = #{blogType,jdbcType=INTEGER},
+      series_id = #{seriesId,jdbcType=BIGINT},
+      blog_create_time = #{blogCreateTime,jdbcType=TIMESTAMP},
+      blog_update_time = #{blogUpdateTime,jdbcType=TIMESTAMP},
+      blog_intro = #{blogIntro,jdbcType=VARCHAR},
+      blog_media = #{blogMedia,jdbcType=VARCHAR},
+      blog_tag = #{blogTag,jdbcType=VARCHAR},
+      blog_info = #{blogInfo,jdbcType=VARCHAR},
+      blog_version = #{blogVersion,jdbcType=BIGINT},
+      original_blog_id = #{originalBlogId,jdbcType=BIGINT},
+      blog_content = #{blogContent,jdbcType=LONGVARCHAR}
+    where blog_id = #{blogId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hly.march2.entity.Draft">
+    update blog_draft
+    set user_id = #{userId,jdbcType=BIGINT},
+      blog_title = #{blogTitle,jdbcType=VARCHAR},
+      blog_status = #{blogStatus,jdbcType=INTEGER},
+      blog_type = #{blogType,jdbcType=INTEGER},
+      series_id = #{seriesId,jdbcType=BIGINT},
+      blog_create_time = #{blogCreateTime,jdbcType=TIMESTAMP},
+      blog_update_time = #{blogUpdateTime,jdbcType=TIMESTAMP},
+      blog_intro = #{blogIntro,jdbcType=VARCHAR},
+      blog_media = #{blogMedia,jdbcType=VARCHAR},
+      blog_tag = #{blogTag,jdbcType=VARCHAR},
+      blog_info = #{blogInfo,jdbcType=VARCHAR},
+      blog_version = #{blogVersion,jdbcType=BIGINT},
+      original_blog_id = #{originalBlogId,jdbcType=BIGINT}
+    where blog_id = #{blogId,jdbcType=BIGINT}
+  </update>
+
+
+
+  <!--VO-->
+  <resultMap id="DraftUserResultMap" type="com.hly.march2.vo.BlogUserVo">
+    <id column="blog_id" jdbcType="BIGINT" property="blogId" />
+    <result column="user_id" jdbcType="BIGINT" property="userId" />
+    <result column="blog_title" jdbcType="VARCHAR" property="blogTitle" />
+    <result column="blog_status" jdbcType="INTEGER" property="blogStatus" />
+    <result column="blog_type" jdbcType="INTEGER" property="blogType" />
+    <result column="series_id" jdbcType="BIGINT" property="seriesId" />
+    <result column="blog_create_time" jdbcType="TIMESTAMP" property="blogCreateTime" />
+    <result column="blog_update_time" jdbcType="TIMESTAMP" property="blogUpdateTime" />
+    <result column="blog_intro" jdbcType="VARCHAR" property="blogIntro" />
+    <result column="blog_media" jdbcType="VARCHAR" property="blogMedia" />
+    <result column="blog_tag" jdbcType="VARCHAR" property="blogTag" />
+    <result column="blog_info" jdbcType="VARCHAR" property="blogInfo" />
+    <result column="blog_version" jdbcType="BIGINT" property="blogVersion" />
+    <result column="original_blog_id" jdbcType="BIGINT" property="originalBlogId" />
+    <result column="source_from" jdbcType="VARCHAR" property="sourceFrom" />
+    <association property="user" column="user_id" javaType="com.hly.march2.entity.User">
+      <id column="user_id" jdbcType="BIGINT" property="userId" />
+      <result column="user_ip" jdbcType="VARCHAR" property="userIp" />
+      <result column="user_name" jdbcType="VARCHAR" property="userName" />
+      <result column="user_email" jdbcType="VARCHAR" property="userEmail" />
+      <result column="user_profile_pic" jdbcType="VARCHAR" property="userProfilePic" />
+      <result column="user_rights" jdbcType="INTEGER" property="userRights" />
+      <result column="user_nickname" jdbcType="VARCHAR" property="userNickname" />
+      <result column="user_last_login_time" jdbcType="TIMESTAMP" property="userLastLoginTime" />
+      <result column="account_status" jdbcType="INTEGER" property="accountStatus" />
+    </association>
+    <association property="blogTypeEntity" column="type_id" javaType="com.hly.march2.entity.BlogType">
+      <id column="type_id" jdbcType="INTEGER" property="typeId" />
+      <result column="type_name" jdbcType="VARCHAR" property="typeName" />
+      <result column="type_short_name" jdbcType="VARCHAR" property="typeShortName" />
+    </association>
+    <association property="blogSeriesEntity" column="series_id" javaType="com.hly.march2.entity.BlogSeries">
+      <id column="series_id" jdbcType="BIGINT" property="seriesId" />
+      <result column="series_short_name" jdbcType="VARCHAR" property="seriesShortName" />
+      <result column="series_name" jdbcType="VARCHAR" property="seriesName" />
+      <result column="series_update_time" jdbcType="TIMESTAMP" property="seriesUpdateTime" />
+    </association>
+  </resultMap>
+  <resultMap extends="DraftUserResultMap" id="DraftUserMapWithBLOBs" type="com.hly.march2.vo.BlogUserVo">
+    <result column="blog_content" jdbcType="LONGVARCHAR" property="blogContent" />
+  </resultMap>
+  <sql id="Draft_User_Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and b.${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and b.${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and b.${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and b.${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="b_Draft_Column_list">
+    b.blog_id, b.user_id, b.blog_title, b.blog_status, b.blog_type, b.series_id, b.blog_create_time,
+    b.blog_update_time, b.blog_intro, b.blog_media, b.blog_tag, b.blog_info, b.blog_version, b.original_blog_id,'draft' as source_from
+  </sql>
+  <sql id="u_User_Column_list">
+    u.user_id, u.user_ip, u.user_name, u.user_email, u.user_profile_pic,
+    u.user_rights, u.user_nickname, u.user_last_login_time, u.account_status
+  </sql>
+  <sql id="s_Series_Column_list">
+   s.series_id, s.series_short_name, s.series_name, s.series_update_time
+  </sql>
+  <sql id="t_Type_Column_list">
+   t.type_id, t.type_name, t.type_short_name
+  </sql>
+  <sql id="Draft_User_Blob_Column_List">
+    b.blog_content
+  </sql>
+  <select id="selectDraftUserByExample" parameterType="com.hly.march2.entity.DraftExample" resultMap="DraftUserResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="b_Draft_Column_list" />
+    ,
+    <include refid="u_User_Column_list" />
+    ,
+    <include refid="s_Series_Column_list" />
+    ,
+    <include refid="t_Type_Column_list" />
+    FROM blog_draft b LEFT OUTER JOIN `user` u on b.user_id= u.user_id
+    LEFT OUTER JOIN  blog_type t ON t.type_id=b.blog_type
+    LEFT OUTER JOIN blog_series s ON s.series_id=b.series_id
+    <if test="_parameter != null">
+      <include refid="Draft_User_Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectDraftUserByExampleWithBLOBs" parameterType="com.hly.march2.entity.DraftExample" resultMap="DraftUserMapWithBLOBs">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="b_Draft_Column_list" />
+    ,
+    <include refid="u_User_Column_list" />
+    ,
+    <include refid="s_Series_Column_list" />
+    ,
+    <include refid="t_Type_Column_list" />
+    ,
+    <include refid="Draft_User_Blob_Column_List" />
+    FROM blog_draft b LEFT OUTER JOIN `user` u on b.user_id= u.user_id
+    LEFT OUTER JOIN  blog_type t ON t.type_id=b.blog_type
+    LEFT OUTER JOIN blog_series s ON s.series_id=b.series_id
+    <if test="_parameter != null">
+      <include refid="Draft_User_Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+
+  <select id="selectDraftUserByPrimaryKey" parameterType="java.lang.Long" resultMap="DraftUserResultMap">
+    select
+    <include refid="b_Draft_Column_list" />
+    ,
+    <include refid="u_User_Column_list" />
+    from ( select
+    <include refid="Base_Column_List" />
+    from blog_draft where blog_id = #{blogId,jdbcType=BIGINT}) as b
+    LEFT OUTER JOIN `user` u on b.user_id= u.user_id
+  </select>
+  <select id="selectDraftUserByPrimaryKeyWithBLOBs" parameterType="java.lang.Long" resultMap="DraftUserMapWithBLOBs">
+    select
+    <include refid="b_Draft_Column_list" />
+    ,
+    <include refid="u_User_Column_list" />
+    ,
+    <include refid="Draft_User_Blob_Column_List" />
+    ,
+    <include refid="s_Series_Column_list" />
+    ,
+    <include refid="t_Type_Column_list" />
+    from ( select
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from blog_draft where blog_id = #{blogId,jdbcType=BIGINT}) as b
+    LEFT OUTER JOIN `user` u on b.user_id= u.user_id
+    LEFT OUTER JOIN  blog_type t ON t.type_id=b.blog_type
+    LEFT OUTER JOIN blog_series s ON s.series_id=b.series_id
+  </select>
+</mapper>

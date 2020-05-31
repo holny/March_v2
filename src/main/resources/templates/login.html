@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" >
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="holny">
+
+    <title>March Blog | Welcome</title>
+
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="theme-color" content="#ffffff">
+    <base th:href="${#request.getContextPath()}+'/'">
+
+    <link rel="icon" th:href="@{res/img/favicons/favicon-96x96.png}" type="image/x-icon" />
+    <link rel="shortcut icon" th:href="@{res/img/favicons/favicon-96x96.png}" type="image/x-icon" />
+    <link rel="bookmark" th:href="@{res/img/favicons/favicon-96x96.png}" type="image/x-icon" />
+
+    <link rel="apple-touch-icon" sizes="57x57" th:href="@{res/img/favicons/apple-icon-57x57.png}">
+    <link rel="apple-touch-icon" sizes="60x60" th:href="@{res/img/favicons/apple-icon-60x60.png}">
+    <link rel="apple-touch-icon" sizes="72x72" th:href="@{res/img/favicons/apple-icon-72x72.png}">
+    <link rel="apple-touch-icon" sizes="76x76" th:href="@{res/img/favicons/apple-icon-76x76.png}">
+    <link rel="apple-touch-icon" sizes="114x114" th:href="@{res/img/favicons/apple-icon-114x114.png}">
+    <link rel="apple-touch-icon" sizes="120x120" th:href="@{res/img/favicons/apple-icon-120x120.png}">
+    <link rel="apple-touch-icon" sizes="144x144" th:href="@{res/img/favicons/apple-icon-144x144.png}">
+    <link rel="apple-touch-icon" sizes="152x152" th:href="@{res/img/favicons/apple-icon-152x152.png}">
+    <link rel="apple-touch-icon" sizes="180x180" th:href="@{res/img/favicons/apple-icon-180x180.png}">
+    <link rel="icon" type="image/png" sizes="192x192" th:href="@{res/img/favicons/android-icon-192x192.png}">
+    <link rel="icon" type="image/png" sizes="32x32" th:href="@{res/img/favicons/favicon-32x32.png}">
+    <link rel="icon" type="image/png" sizes="96x96" th:href="@{res/img/favicons/favicon-96x96.png}">
+    <link rel="icon" type="image/png" sizes="16x16" th:href="@{res/img/favicons/favicon-16x16.png}">
+    <!-- CSS -->
+    <link th:href="@{res/lib/bootstrap/dist/css/bootstrap.min.css}" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed:400,700" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Volkhov:400i" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800" rel="stylesheet">
+
+    <link th:href="@{res/css/style.css}" rel="stylesheet">
+    <link id="color-scheme" th:href="@{res/css/colors/default.css}" rel="stylesheet">
+    <link th:href="@{res/lib/components-font-awesome/css/font-awesome.min.css}" rel="stylesheet">
+    <link th:href="@{res/lib/fontawesome/css/all.min.css}" rel="stylesheet" type="text/css">
+    <link th:href="@{res/lib/et-line-font/et-line-font.css}" rel="stylesheet">
+
+    <link th:href="@{res/lib/animate.css/animate.css}" rel="stylesheet">
+
+    <link th:href="@{toastr/build/toastr.min.css}" rel="stylesheet"/>
+    <link th:href="@{res/css/my.css}" rel="stylesheet">
+
+</head>
+<body data-spy="scroll" data-target=".onpage-navigation" data-offset="60">
+
+<main>
+    <div class="page-loader">
+        <div class="loader">Loading...</div>
+    </div>
+
+    <div class="main" style="height: 100vh">
+        <div th:replace="commons/bar::topbar"></div>
+        <div th:replace="commons/bar::loginPageBg"></div>
+        <section class="module-small">
+
+            <div class="row">
+
+                <div class="text-center col-sm-offset-5 col-md-offset-7 col-lg-offset-8">
+                    <!-- Login Form -->
+                    <form class="form hFormWhiteBg hLoginFormSize hShadowAndRound" id="loginForm">
+                        <h4 class="font-alt hInputGroup">Log in</h4>
+                        <hr class="divider-w mb-10">
+                        <div class="form-group hInputGroup">
+                            <input class="form-control hNoSpaceNAutoClear " type="text" name="account"
+                                   placeholder="Account">
+                            <p class="help-block text-danger hInputInfo"></p>
+                        </div>
+                        <div class="form-group hInputGroup">
+                            <input class="form-control hNoSpaceNAutoClear" type="password" name="userPassword"
+                                   placeholder="Password">
+                            <p class="help-block text-danger hInputInfo"></p>
+                        </div>
+                        <div class="form-group hInputGroup">
+                            <input type="text" name="captchaCode" class="form-control  pull-left hNoSpaceNAutoClear"
+                                   placeholder="Code" style="width: 50%;display: inline">
+                            <img th:src="@{captcha}" id="loginCaptchaPic" onclick="getCaptchaPic(this)"
+                                 class="captchaPic pull-right"/>
+                            <p class="help-block text-danger hInputInfo"></p>
+                        </div>
+                        <div class="form-group center-block">
+                            <label class="font-alt">
+                                <input type="checkbox" name="remember"> Remeber Me
+                            </label>
+                        </div>
+                        <div class="form-group">
+                            <button type="button" class="btn btn-block btn-round btn-b hEnterKeyListener"
+                                    onclick="user_login($('#loginForm'))">
+                                <i class="fa fa-cog fa-spin" style="display: none"></i>
+                                Log in
+                            </button>
+                        </div>
+<!--                        <div class="form-group"><a href="">Forgot Password?</a></div>-->
+                        <div class="">
+                            <button type="button" class="btn btn-block btn-round btn-border-d " id="goSignUpBtn">
+                                Sign Up
+                            </button>
+                        </div>
+
+                    </form>
+
+                    <!-- Sign Up Form -->
+                    <form class="form hFormWhiteBg hRegFormSize hShadowAndRound" id="regForm" style="display: none">
+                        <h4 class="font-alt hInputGroup">Sign Up</h4>
+                        <hr class="divider-w mb-10">
+                        <div class="form-group hInputGroup">
+                            <input class="form-control hNoSpaceNAutoClear"
+                                   onchange="regEmailCheck(this)" type="text" name="userEmail"
+                                   placeholder="Email*">
+                            <p class="help-block text-danger hInputInfo" id="regEmailWarning"></p>
+                        </div>
+                        <div class="form-group hInputGroup">
+                            <input class="form-control hNoSpaceNAutoClear" onchange="regUserNameCheck(this)" type="text"
+                                   name="userName"
+                                   placeholder="Your Name*">
+                            <p class="help-block text-danger hInputInfo" id="regUserNameWarning"></p>
+                        </div>
+
+                        <div class="form-group hInputGroup">
+                            <input class="form-control hNoSpaceNAutoClear"
+                                   onchange="regUserPSW1Check(this,$('#regUserPSW2'))" id="regUserPSW1" type="password"
+                                   placeholder="Password*">
+                            <p class="help-block text-danger hInputInfo" id="regUserPSWWarning1"></p>
+                        </div>
+                        <div class="form-group hInputGroup">
+                            <input class="form-control hNoSpaceNAutoClear"
+                                   onchange="regUserPSW2Check(this,$('#regUserPSW1'))" id="regUserPSW2" type="password"
+                                   name="userPassword"
+                                   placeholder="Re-enter Password*">
+                            <p class="help-block text-danger hInputInfo" id="regUserPSWWarning2"></p>
+                        </div>
+                        <div class="form-group hInputGroup">
+                            <input class="form-control hNoSpaceNAutoClear" type="text"
+                                   name="invitationCode"
+                                   placeholder="Invitation code">
+                            <p class="help-block text-danger hInputInfo" id="invitationCodeWarning"></p>
+                        </div>
+                        <div class="form-group hInputGroup">
+                            <input type="text" name="captchaCode" class="form-control  pull-left hNoSpaceNAutoClear"
+                                   placeholder="Code" style="width: 50%;display: inline">
+                            <img th:src="@{captcha}" id="regCaptchaPic" onclick="getCaptchaPic(this)"
+                                 class="captchaPic pull-right"/>
+                            <p class="help-block text-danger hInputInfo " id="regCaptchaWarning"></p>
+                        </div>
+                        <div class="form-group">
+<!--                            <button class="btn btn-block btn-round btn-d"  type="submit">Submit</button>-->
+                            <button type="button" class="btn btn-block btn-round btn-b"
+                                    onclick="user_register($('#regForm'))">
+                                <i class="fa fa-cog fa-spin" style="display: none"></i>
+                                Sign Up
+                            </button>
+                        </div>
+                        <div class="">
+                            <button type="button" class="btn btn-block btn-round btn-border-d " id="goLogInBtn">
+                                Back
+                            </button>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+        </section>
+        <div th:replace="commons/bar::footerr"></div>
+    </div>
+    <div class="scroll-up"><a href="#totop"><i class="fa fa-angle-double-up"></i></a></div>
+</main>
+<!-- Javascript -->
+<script th:src="@{jquery/jquery.min.js}"></script>
+<script th:src="@{res/lib/bootstrap/dist/js/bootstrap.min.js}"></script>
+<script th:src="@{res/lib/wow/dist/wow.js}"></script>
+
+<script th:src="@{res/js/main.js}"></script>
+
+<script th:src="@{toastr/build/toastr.min.js}"></script>
+<script th:src="@{res/js/my.js}" th:inline="javascript"></script>
+<script th:src="@{res/js/hlogin.js}"></script>
+</body>
+<script type="text/javascript" th:inline="javascript">
+    $(function () {
+        global_url_map.context_base = [[${#request.getContextPath()}]]+'/';
+        global_server_running_time = [[${session.runningSec}]];
+        runningTime(global_server_running_time, $("#showTime"));
+    });
+    let regEmailPass = false, regUserNamePass = false, regPSW1Pass = false, regPSW2Pass = false;
+    function item_setting(index) {
+        $('#myModal').modal();
+    }
+
+    // 点击切换到Sign up界面
+    $("#goSignUpBtn").click(function () {
+
+        $("#loginForm").slideUp("slow", function () {
+            $("#regForm").slideDown("slow");
+        });
+
+    });
+    // 点击切换到Log in界面
+    $("#goLogInBtn").click(function () {
+        $("#regForm").slideUp("slow", function () {
+            $("#loginForm").slideDown("slow");
+        });
+    });
+
+
+</script>
+</html>

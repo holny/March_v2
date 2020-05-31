@@ -1,0 +1,247 @@
+@charset "UTF-8";
+/*Login begin*/
+.captchaPic{
+    cursor:pointer;
+    height: 40px;
+    width: 48%;
+}
+
+.hInputGroup{
+    height: 45px;
+}
+
+.hInputInfo{
+    color: #a94442;
+    display: none;
+}
+
+
+.hProgress-bar{
+    margin: 40px 0 0 0 ;
+}
+
+/*Login end*/
+
+.hText-limit-line{
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 4;            /*设置p元素最大4行，父元素需填写宽度才明显*/
+    text-overflow: ellipsis;
+    overflow: hidden;
+    /* autoprefixer: off */
+    -webkit-box-orient: vertical;
+    /* autoprefixer: on */
+    /*因为代码环境的关系-webkit-box-orient被过滤掉了 autoprefixer 这个关键字可以免除被过滤的动作*/
+    word-wrap:break-word;
+    word-break:break-all;
+}
+
+.hText-limit-chars{
+    overflow: hidden;
+
+    text-overflow: ellipsis;
+
+    white-space: nowrap;
+}
+
+.hAvatar{
+    max-width: 50%;
+    display: block;
+    margin-right: auto;
+    margin-left: auto;
+}
+.hAvatar-small{
+    max-width: 25px!important;
+    display: block;
+}
+
+
+.post-columns .post {
+    height: 100%;
+}
+
+.post-columns .post-header {
+    height: 30%;
+}
+
+.post-columns .post-entry {
+    height: 50% ;
+}
+
+.post-columns .post-more {
+    height: 10% ;
+}
+
+.post-columns .post-more .hPostIcon {
+    margin: 0 5% 0 0 ;
+    font-size: 2em;
+    cursor: pointer;
+}
+
+.hShadowAndRound {
+    box-shadow: 0px 15px 28px -5px rgba(29, 130, 255, 0.45);
+    border-radius: 5px !important;
+}
+
+.hFont-1{
+    font-family: "Roboto Condensed", sans-serif;
+    /*text-transform: uppercase;*/
+    letter-spacing: 2px;
+}
+
+.hTextarea{
+    resize: none
+}
+
+.hFormWhiteBg{
+    overflow: hidden;
+    overflow-y: auto;
+    background-color: white;
+}
+
+
+.hWhole_bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 120%;
+    min-width: 1000px;
+    z-index: -10;
+    zoom: 1;
+    background-size: cover;
+    -webkit-background-size: cover;
+    -o-background-size: cover;
+}
+
+.hOverlay {
+    position: absolute;
+    margin-top: 0;
+    margin-bottom: 0;
+    height: 100rem;
+    width: 100%;
+    background-color: #212529;
+    opacity: 0.5;
+}
+
+/* blog jsp begin*/
+.hWitheBg{
+    background: white;
+    padding: 1% 2% 1% 2%;
+}
+/* blog jsp end*/
+
+/* 大屏幕 ：大于等于1200px*/
+/* .col-lg */
+@media (min-width: 1200px) {
+    .hPostItem{
+        padding: 1em 1em 1em 1em;
+        margin: 1em 1em 1em 1em;
+        width: 90%;
+        height: 250px;
+    }
+
+    .hLoginFormSize{
+        width: 320px;
+        padding:1em 2em 1em 2em;
+        height: 450px;
+    }
+    .hRegFormSize{
+        width: 320px;
+        padding:1em 2em 1em 2em;
+        height: 550px;
+    }
+
+}
+
+/*默认*/
+/* .col-md */
+@media (min-width: 993px) {
+    .hPostItem{
+        padding: 1em 1em 1em 1em;
+        margin: 1em 1em 1em 1em;
+        width: 90%;
+        height: 250px;
+    }
+    .hLoginFormSize{
+        width: 340px;
+        padding:1em 2em 1em 2em;
+        height: 450px;
+    }
+    .hRegFormSize{
+        width: 340px;
+        padding:1em 2em 1em 2em;
+        height: 550px;
+    }
+}
+
+/* 平板电脑和小屏电脑之间的分辨率 */
+/* .col-sm */
+@media (min-width: 768px) and (max-width: 992px) {
+    .hPostItem{
+        padding: 1em 1em 1em 1em;
+        margin: 1em 1em 1em 1em;
+        width: 90%;
+        height: 250px;
+    }
+    .hLoginFormSize{
+        width: 370px;
+        padding:1em 2em 1em 2em;
+        height: 450px;
+    }
+    .hRegFormSize{
+        width: 370px;
+        padding:1em 2em 1em 2em;
+        height: 550px;
+    }
+}
+
+/* 横向放置的手机和竖向放置的平板之间的分辨率 */
+/* .col-xs */
+@media (max-width: 767px) {
+    .hPostItem{
+        padding: 1em 1em 1em 1em;
+        margin: 1em 1em 1em 1em;
+        width: 90%;
+        height: 250px;
+    }
+    .hLoginFormSize{
+        width: 55%;
+        padding:1em 2em 1em 2em;
+        margin-right: auto;
+        margin-left: auto;
+        height: 450px;
+    }
+    .hRegFormSize{
+        width: 55%;
+        padding:1em 2em 1em 2em;
+        margin-right: auto;
+        margin-left: auto;
+        height: 550px;
+    }
+
+}
+
+/* 横向放置的手机及分辨率更小的设备 */
+@media (max-width: 480px) {
+    .hPostItem{
+        padding: 1em 1em 1em 1em;
+        margin: 1em 1em 1em 1em;
+        width: 90%;
+        height: 250px;
+    }
+    .hLoginFormSize{
+        width: 80%;
+        padding:1em 2em 1em 2em;
+        margin-right: auto;
+        margin-left: auto;
+        height: 450px;
+    }
+    .hRegFormSize{
+        width: 80%;
+        padding:1em 2em 1em 2em;
+        margin-right: auto;
+        margin-left: auto;
+        height: 550px;
+    }
+}

@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="holny">
+
+    <title th:inline="text">March Blog | Edit-[(${blog.blogTitle})]</title>
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="theme-color" content="#ffffff">
+    <base th:href="${#request.getContextPath()}+'/'">
+
+    <link rel="icon" th:href="@{res/img/favicons/favicon-96x96.png}" type="image/x-icon" />
+    <link rel="shortcut icon" th:href="@{res/img/favicons/favicon-96x96.png}"  type="image/x-icon" />
+    <link rel="bookmark" th:href="@{res/img/favicons/favicon-96x96.png}"  type="image/x-icon" />
+
+    <link rel="apple-touch-icon" sizes="57x57" th:href="@{res/img/favicons/apple-icon-57x57.png}" >
+    <link rel="apple-touch-icon" sizes="60x60" th:href="@{res/img/favicons/apple-icon-60x60.png}" >
+    <link rel="apple-touch-icon" sizes="72x72" th:href="@{res/img/favicons/apple-icon-72x72.png}" >
+    <link rel="apple-touch-icon" sizes="76x76" th:href="@{res/img/favicons/apple-icon-76x76.png}" >
+    <link rel="apple-touch-icon" sizes="114x114" th:href="@{res/img/favicons/apple-icon-114x114.png}" >
+    <link rel="apple-touch-icon" sizes="120x120" th:href="@{res/img/favicons/apple-icon-120x120.png}" >
+    <link rel="apple-touch-icon" sizes="144x144" th:href="@{res/img/favicons/apple-icon-144x144.png}" >
+    <link rel="apple-touch-icon" sizes="152x152" th:href="@{res/img/favicons/apple-icon-152x152.png}" >
+    <link rel="apple-touch-icon" sizes="180x180" th:href="@{res/img/favicons/apple-icon-180x180.png}" >
+    <link rel="icon" type="image/png" sizes="192x192" th:href="@{res/img/favicons/android-icon-192x192.png}" >
+    <link rel="icon" type="image/png" sizes="32x32" th:href="@{res/img/favicons/favicon-32x32.png}" >
+    <link rel="icon" type="image/png" sizes="96x96" th:href="@{res/img/favicons/favicon-96x96.png}" >
+    <link rel="icon" type="image/png" sizes="16x16" th:href="@{res/img/favicons/favicon-16x16.png}" >
+
+    <!-- CSS -->
+    <link th:href="@{res/lib/bootstrap/dist/css/bootstrap.min.css}" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed:400,700" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Volkhov:400i" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800" rel="stylesheet">
+
+    <link th:href="@{res/css/style.css}" rel="stylesheet">
+    <link id="color-scheme" th:href="@{res/css/colors/default.css}" rel="stylesheet">
+    <link th:href="@{res/lib/components-font-awesome/css/font-awesome.min.css}" rel="stylesheet">
+    <link th:href="@{res/lib/fontawesome/css/all.min.css}" rel="stylesheet" type="text/css">
+    <link th:href="@{res/lib/et-line-font/et-line-font.css}" rel="stylesheet">
+
+    <link th:href="@{res/lib/animate.css/animate.css}" rel="stylesheet">
+
+    <link rel="stylesheet" th:href="@{editormd/css/editormd.css}"/>
+    <link th:href="@{toastr/build/toastr.min.css}" rel="stylesheet"/>
+    <link th:href="@{res/datetimepicker/css/bootstrap-datetimepicker.min.css}" rel="stylesheet">
+    <link th:href="@{res/css/my.css}" rel="stylesheet">
+
+</head>
+<body>
+<main>
+    <div class="page-loader">
+        <div class="loader">Loading...</div>
+    </div>
+    <div class="main" style="height: 100vh">
+        <div id="blogEditor" style="height: 100%;margin: 0">
+               <textarea style="display:block;" th:inline="text">
+                   [(${blog.blogContent})]
+               </textarea>
+        </div>
+
+        <div th:replace="commons/bar::footerr"></div>
+
+    </div>
+    <div class="scroll-up"><a href="#totop"><i class="fa fa-angle-double-up"></i></a></div>
+    </div>
+
+
+</main>
+<!-- Modal -->
+<div class="modal fade editorModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog hShadowAndRound" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
+                </button>
+                <h5 class="font-alt mb-0 modal-title">Blog Edit</h5>
+            </div>
+            <div class="modal-body">
+                <h4 class="font-alt mb-0 hModalInfo" style="display: none">Message</h4>
+                <form class="form" style="display: none">
+
+                    <div class="form-group" style="display: none">
+                        <input class="form-control" name="userId" type="text" placeholder="User Id" th:value=" ${blog.userId}" readonly>
+                    </div>
+                    <h5 class="font-alt mb-0">Blog ID:</h5>
+                    <div class="form-group">
+                        <input class="form-control" name="blogId" type="text" placeholder="Blog Id" th:value=" ${blog.blogId}" readonly>
+                    </div>
+                    <div style="display: none" name="originBlogIdArea">
+                        <hr class="divider-w mt-10 mb-20">
+                        <h5 class="font-alt mb-0">Origin Blog Id:</h5>
+                        <div class="form-group">
+                            <input class="form-control" name="originalBlogId" type="text" th:value="${blog.originalBlogId}" placeholder="Origin Blog Id" readonly>
+                        </div>
+                    </div>
+                    <hr class="divider-w mt-10 mb-20">
+                    <h5 class="font-alt mb-0">Blog update time:</h5>
+                    <div class="form-group">
+                        <p class="form-control" name="blogUpdateTime" th:text="${blog} ? ${#dates.format(blog.blogUpdateTime, 'yyyy-MM-dd HH:mm')}"></p>
+                    </div>
+                    <hr class="divider-w mt-10 mb-20">
+                    <h5 class="font-alt mb-0">Blog Title:</h5>
+                    <div class="form-group">
+                        <input class="form-control" name="blogTitle" type="text" th:value="${blog.blogTitle}" placeholder="Title">
+                    </div>
+                    <hr class="divider-w mt-10 mb-20">
+                    <h5 class="font-alt mb-0">Blog Intro:</h5>
+                    <div class="form-group">
+                        <textarea class="form-control hTextarea"  name="blogIntro" rows="7" cols="7" maxlength="300"
+                                  placeholder="Blog Intro" th:inline="text">[(${blog.blogIntro})]</textarea>
+                    </div>
+                    <hr class="divider-w mt-10 mb-20">
+                    <h5 class="font-alt mb-0">Blog Type:</h5>
+                    <div class="row form-group">
+                        <div class="col-xs-5 col-sm-5">
+                            <select class="form-control blogTypeSelector" name="blogType"  th:value="${blog.blogType}">
+                                <option selected disabled value="">Choose...</option>
+                            </select>
+                        </div>
+                        <div class="col-xs-2 col-sm-2">
+                            <label>
+                                <input type="checkbox" name="blogTypeCheckbox" onclick="blog_modify_checkbox($(this),'type')" >
+                                添加
+                            </label>
+                        </div>
+                        <div class="col-xs-5 col-sm-5">
+                            <input class="form-control" name="newType" type="text" disabled>
+                        </div>
+                    </div>
+                    <hr class="divider-w mt-10 mb-20">
+                    <h5 class="font-alt mb-0">Blog Series:</h5>
+                    <div class="row form-group" >
+                        <div class="col-xs-5 col-sm-5">
+                            <select class="form-control seriesIdSelector" th:value="${blog.seriesId}" name="seriesId">
+                                <option selected disabled >Choose...</option>
+                            </select>
+                        </div>
+                        <div class="col-xs-2 col-sm-2">
+                            <label>
+                                <input type="checkbox" name="seriesIdCheckbox"  onclick="blog_modify_checkbox($(this),'series')" >
+                                添加
+                            </label>
+                        </div>
+                        <div class="col-xs-5 col-sm-5">
+                            <input class="form-control" name="newSeries" type="text" disabled>
+                        </div>
+                    </div>
+                    <hr class="divider-w mt-10 mb-20">
+                    <h5 class="font-alt mb-0">Blog Status:</h5>
+                    <div class="form-group">
+                        <select class="form-control" name="blogStatus" th:value="${blog.blogStatus}" readonly>
+                            <option selected disabled value="">Choose...</option>
+                            <option value="7" disabled>highlight</option>
+                            <option value="6" disabled>normal</option>
+                            <option value="5" disabled>friendly</option>
+                            <option value="4" disabled>private</option>
+                            <option value="3" disabled>draft</option>
+                            <option value="2" disabled>preview</option>
+                            <option value="1" disabled>pre-create</option>
+                        </select>
+                        <p class="help-block text-danger pull-right hInputInfo itemInfoModalWarning"></p>
+                    </div>
+                </form>
+
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-border-d btn-round cancelBtn" data-dismiss="modal" type="button">取消</button>
+                <button class="btn btn-b btn-round confirmBtn"  type="button">确认</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Javascript -->
+<script th:src="@{jquery/jquery.min.js}"></script>
+<script th:src="@{res/lib/bootstrap/dist/js/bootstrap.min.js}"></script>
+<script th:src="@{res/lib/wow/dist/wow.js}"></script>
+<script th:src="@{res/datetimepicker/js/bootstrap-datetimepicker.js}"></script>
+<script th:src="@{res/datetimepicker/js/locales/bootstrap-datetimepicker.zh-CN.js}"></script>
+
+<script th:src="@{editormd/editormd.js}"></script>
+<script th:src="@{xss/dist/xss.min.js}"></script>
+<script th:src="@{res/js/main.js}"></script>
+<script th:src="@{toastr/build/toastr.min.js}"></script>
+<script th:src="@{res/js/my.js}"></script>
+<script th:src="@{res/js/edit.js}"></script>
+<script th:src="@{res/js/bloglist.js}"></script>
+
+<script type="text/javascript" th:inline="javascript">
+
+    $(function () {
+        global_blogMap.userId= [[${blog.userId}]];
+        global_blogMap.blogId=[[${blog.blogId}]];
+        global_blogMap.sourceFrom=[[${blog.sourceFrom}]];
+        global_blogMap.blogStatus =[[${blog.blogStatus}]];
+
+        global_url_map.context_base=[[${#request.getContextPath()}]]+'/';
+        global_server_running_time = [[${runningSec}]];
+        runningTime(global_server_running_time,$("#showTime"));
+        blog_editor_init("blogEditor");
+
+        editPageInit($(".editorModal"));
+        init_type_list([[${blog.userId}]],$('.blogTypeSelector'));
+        init_series_list([[${blog.userId}]],$('.seriesIdSelector'));
+
+    });
+    // // 删除缓存
+    // blogEditor.CodeAutoSaveDelCache();
+    // // 清空缓存的文档内容
+    // blogEditor.CodeAutoSaveEmptyCacheContent();
+    // // 自定义设置缓存
+    // blogEditor.CodeAutoSaveSetCache('缓存内容');
+
+
+</script>
+</body>
+</html>

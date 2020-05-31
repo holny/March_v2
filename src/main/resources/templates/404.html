@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Error</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="holny">
+    <title>March Blog | Error</title>
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="theme-color" content="#ffffff">
+    <base th:href="${#request.getContextPath()}+'/'">
+    <link rel="icon" th:href="@{res/img/favicons/favicon-96x96.png}" type="image/x-icon" />
+    <link rel="shortcut icon" th:href="@{res/img/favicons/favicon-96x96.png}" type="image/x-icon" />
+    <link rel="bookmark" th:href="@{res/img/favicons/favicon-96x96.png}" type="image/x-icon" />
+
+    <link rel="apple-touch-icon" sizes="57x57" th:href="@{res/img/favicons/apple-icon-57x57.png}">
+    <link rel="apple-touch-icon" sizes="60x60" th:href="@{res/img/favicons/apple-icon-60x60.png}">
+    <link rel="apple-touch-icon" sizes="72x72" th:href="@{res/img/favicons/apple-icon-72x72.png}">
+    <link rel="apple-touch-icon" sizes="76x76" th:href="@{res/img/favicons/apple-icon-76x76.png}">
+    <link rel="apple-touch-icon" sizes="114x114" th:href="@{res/img/favicons/apple-icon-114x114.png}">
+    <link rel="apple-touch-icon" sizes="120x120" th:href="@{res/img/favicons/apple-icon-120x120.png}">
+    <link rel="apple-touch-icon" sizes="144x144" th:href="@{res/img/favicons/apple-icon-144x144.png}">
+    <link rel="apple-touch-icon" sizes="152x152" th:href="@{res/img/favicons/apple-icon-152x152.png}">
+    <link rel="apple-touch-icon" sizes="180x180" th:href="@{res/img/favicons/apple-icon-180x180.png}">
+    <link rel="icon" type="image/png" sizes="192x192" th:href="@{res/img/favicons/android-icon-192x192.png}">
+    <link rel="icon" type="image/png" sizes="32x32" th:href="@{res/img/favicons/favicon-32x32.png}">
+    <link rel="icon" type="image/png" sizes="96x96" th:href="@{res/img/favicons/favicon-96x96.png}">
+    <link rel="icon" type="image/png" sizes="16x16" th:href="@{res/img/favicons/favicon-16x16.png}">
+    <!-- CSS -->
+    <link th:href="@{res/lib/bootstrap/dist/css/bootstrap.min.css}" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed:400,700" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Volkhov:400i" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800" rel="stylesheet">
+
+    <link th:href="@{res/css/style.css}" rel="stylesheet">
+    <link id="color-scheme" th:href="@{res/css/colors/default.css}" rel="stylesheet">
+    <link th:href="@{res/lib/components-font-awesome/css/font-awesome.min.css}" rel="stylesheet">
+    <link th:href="@{res/lib/fontawesome/css/all.min.css}" rel="stylesheet" type="text/css">
+    <link th:href="@{res/lib/et-line-font/et-line-font.css}" rel="stylesheet">
+
+    <link th:href="@{res/css/my.css}" rel="stylesheet">
+</head>
+<body data-spy="scroll" data-target=".onpage-navigation" data-offset="60">
+<main>
+    <div class="page-loader">
+        <div class="loader">Loading...</div>
+    </div>
+    <section class="home-section home-parallax home-fade home-full-height bg-dark bg-dark-30" id="home"
+             data-background="res/img/bg/home-bg4.jpg">
+        <div class="titan-caption">
+            <div class="caption-content">
+                <div class="font-alt mb-30 titan-title-size-4">Error 404</div>
+                <div class="font-alt" th:inline="text">[[${msg}]]<br/>That is all we know.
+                </div>
+
+                <div class="font-alt mt-30"><a class="btn btn-border-w btn-round" style="width: 210px" th:href="@{home}">Back to
+                    home page</a></div>
+                <div class="font-alt mt-30"><a class="btn btn-border-w btn-round" style="width: 210px" th:href="@{login}">Go to
+                    Login page</a></div>
+            </div>
+        </div>
+    </section>
+</main>
+
+<!-- Javascript -->
+<script th:src="@{jquery/jquery.min.js}"></script>
+<script th:src="@{res/lib/bootstrap/dist/js/bootstrap.min.js}"></script>
+<script th:src="@{res/lib/wow/dist/wow.js}"></script>
+
+<script th:src="@{res/js/main.js}"></script>
+<script th:src="@{res/js/my.js}"></script>
+</body>
+</html>

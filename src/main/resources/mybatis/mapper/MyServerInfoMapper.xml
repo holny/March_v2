@@ -1,0 +1,316 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hly.march2.dao.MyServerInfoMapper">
+  <resultMap id="BaseResultMap" type="com.hly.march2.entity.MyServerInfo">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="first_start_time" jdbcType="TIMESTAMP" property="firstStartTime" />
+    <result column="total_running_time" jdbcType="BIGINT" property="totalRunningTime" />
+    <result column="this_start_time" jdbcType="TIMESTAMP" property="thisStartTime" />
+    <result column="this_end_time" jdbcType="TIMESTAMP" property="thisEndTime" />
+    <result column="total_visitor_num" jdbcType="BIGINT" property="totalVisitorNum" />
+    <result column="this_visitor_num" jdbcType="BIGINT" property="thisVisitorNum" />
+    <result column="this_update_time" jdbcType="TIMESTAMP" property="thisUpdateTime" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, first_start_time, total_running_time, this_start_time, this_end_time, total_visitor_num, 
+    this_visitor_num, this_update_time
+  </sql>
+  <select id="selectByExample" parameterType="com.hly.march2.entity.MyServerInfoExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from server
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from server
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from server
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.hly.march2.entity.MyServerInfoExample">
+    delete from server
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.hly.march2.entity.MyServerInfo" useGeneratedKeys="true" keyProperty="id">
+    insert into server (id, first_start_time, total_running_time, 
+      this_start_time, this_end_time, total_visitor_num, 
+      this_visitor_num, this_update_time)
+    values (#{id,jdbcType=BIGINT}, #{firstStartTime,jdbcType=TIMESTAMP}, #{totalRunningTime,jdbcType=BIGINT}, 
+      #{thisStartTime,jdbcType=TIMESTAMP}, #{thisEndTime,jdbcType=TIMESTAMP}, #{totalVisitorNum,jdbcType=BIGINT}, 
+      #{thisVisitorNum,jdbcType=BIGINT}, #{thisUpdateTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.hly.march2.entity.MyServerInfo"  useGeneratedKeys="true" keyProperty="id">
+    insert into server
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="firstStartTime != null">
+        first_start_time,
+      </if>
+      <if test="totalRunningTime != null">
+        total_running_time,
+      </if>
+      <if test="thisStartTime != null">
+        this_start_time,
+      </if>
+      <if test="thisEndTime != null">
+        this_end_time,
+      </if>
+      <if test="totalVisitorNum != null">
+        total_visitor_num,
+      </if>
+      <if test="thisVisitorNum != null">
+        this_visitor_num,
+      </if>
+      <if test="thisUpdateTime != null">
+        this_update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="firstStartTime != null">
+        #{firstStartTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="totalRunningTime != null">
+        #{totalRunningTime,jdbcType=BIGINT},
+      </if>
+      <if test="thisStartTime != null">
+        #{thisStartTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="thisEndTime != null">
+        #{thisEndTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="totalVisitorNum != null">
+        #{totalVisitorNum,jdbcType=BIGINT},
+      </if>
+      <if test="thisVisitorNum != null">
+        #{thisVisitorNum,jdbcType=BIGINT},
+      </if>
+      <if test="thisUpdateTime != null">
+        #{thisUpdateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.hly.march2.entity.MyServerInfoExample" resultType="java.lang.Long">
+    select count(*) from server
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update server
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.firstStartTime != null">
+        first_start_time = #{record.firstStartTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.totalRunningTime != null">
+        total_running_time = #{record.totalRunningTime,jdbcType=BIGINT},
+      </if>
+      <if test="record.thisStartTime != null">
+        this_start_time = #{record.thisStartTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.thisEndTime != null">
+        this_end_time = #{record.thisEndTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.totalVisitorNum != null">
+        total_visitor_num = #{record.totalVisitorNum,jdbcType=BIGINT},
+      </if>
+      <if test="record.thisVisitorNum != null">
+        this_visitor_num = #{record.thisVisitorNum,jdbcType=BIGINT},
+      </if>
+      <if test="record.thisUpdateTime != null">
+        this_update_time = #{record.thisUpdateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update server
+    set id = #{record.id,jdbcType=BIGINT},
+      first_start_time = #{record.firstStartTime,jdbcType=TIMESTAMP},
+      total_running_time = #{record.totalRunningTime,jdbcType=BIGINT},
+      this_start_time = #{record.thisStartTime,jdbcType=TIMESTAMP},
+      this_end_time = #{record.thisEndTime,jdbcType=TIMESTAMP},
+      total_visitor_num = #{record.totalVisitorNum,jdbcType=BIGINT},
+      this_visitor_num = #{record.thisVisitorNum,jdbcType=BIGINT},
+      this_update_time = #{record.thisUpdateTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hly.march2.entity.MyServerInfo">
+    update server
+    <set>
+      <if test="firstStartTime != null">
+        first_start_time = #{firstStartTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="totalRunningTime != null">
+        total_running_time = #{totalRunningTime,jdbcType=BIGINT},
+      </if>
+      <if test="thisStartTime != null">
+        this_start_time = #{thisStartTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="thisEndTime != null">
+        this_end_time = #{thisEndTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="totalVisitorNum != null">
+        total_visitor_num = #{totalVisitorNum,jdbcType=BIGINT},
+      </if>
+      <if test="thisVisitorNum != null">
+        this_visitor_num = #{thisVisitorNum,jdbcType=BIGINT},
+      </if>
+      <if test="thisUpdateTime != null">
+        this_update_time = #{thisUpdateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hly.march2.entity.MyServerInfo">
+    update server
+    set first_start_time = #{firstStartTime,jdbcType=TIMESTAMP},
+      total_running_time = #{totalRunningTime,jdbcType=BIGINT},
+      this_start_time = #{thisStartTime,jdbcType=TIMESTAMP},
+      this_end_time = #{thisEndTime,jdbcType=TIMESTAMP},
+      total_visitor_num = #{totalVisitorNum,jdbcType=BIGINT},
+      this_visitor_num = #{thisVisitorNum,jdbcType=BIGINT},
+      this_update_time = #{thisUpdateTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+
+  <!--add update -->
+  <update id="periodUpdateByPrimaryKeySelective" parameterType="com.hly.march2.entity.MyServerInfo">
+    update server
+    <set>
+      <if test="firstStartTime != null">
+        first_start_time = #{firstStartTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="totalRunningTime != null">
+        total_running_time =  #{totalRunningTime,jdbcType=BIGINT},
+      </if>
+      <if test="thisStartTime != null">
+        this_start_time = #{thisStartTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="thisEndTime != null">
+        this_end_time = #{thisEndTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="thisVisitorNum != null">
+        total_visitor_num = #{totalVisitorNum,jdbcType=BIGINT},
+      </if>
+      <if test="thisVisitorNum != null">
+        this_visitor_num = #{thisVisitorNum,jdbcType=BIGINT},
+      </if>
+      <if test="thisUpdateTime != null">
+        this_update_time = #{thisUpdateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="finalUpdateByPrimaryKeySelective" parameterType="com.hly.march2.entity.MyServerInfo">
+    update server
+    <set>
+      <if test="firstStartTime != null">
+        first_start_time = #{firstStartTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="totalRunningTime != null">
+        total_running_time = total_running_time + #{totalRunningTime,jdbcType=BIGINT},
+      </if>
+      <if test="thisStartTime != null">
+        this_start_time = #{thisStartTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="thisEndTime != null">
+        this_end_time = #{thisEndTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="thisVisitorNum != null">
+        total_visitor_num = total_visitor_num + #{thisVisitorNum,jdbcType=BIGINT},
+      </if>
+      <if test="thisVisitorNum != null">
+        this_visitor_num = #{thisVisitorNum,jdbcType=BIGINT},
+      </if>
+      <if test="thisUpdateTime != null">
+        this_update_time = #{thisUpdateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+
+</mapper>

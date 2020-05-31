@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<head>
+    <meta charset="UTF-8">
+    <title>Commons</title>
+</head>
+<body>
+
+<div class="hWhole_bg" style="background: url('res/img/bg/home-bg3.jpg') no-repeat fixed;" th:fragment="loginPageBg">
+    <div class="hOverlay"></div>
+</div>
+
+<div class="hWhole_bg" style="background: url('res/img/bg/home-bg1.jpg') no-repeat fixed;"  th:fragment="myProfilePageBg">
+    <div class="hOverlay"></div>
+</div>
+
+<nav class="navbar navbar-custom navbar-fixed-top" role="navigation" th:fragment="topbar">
+    <div class="container">
+        <div class="navbar-header">
+            <button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#custom-collapse"><span
+                    class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span
+                    class="icon-bar"></span><span class="icon-bar"></span></button>
+            <a class="navbar-brand" th:href="@{/home}">March</a>
+        </div>
+        <div class="collapse navbar-collapse" id="custom-collapse">
+            <ul class="nav navbar-nav navbar-right">
+                <li><a th:href="@{/home}">Home</a>
+                </li>
+                <shiro:user>
+                    <li><a th:href="@{/myblog}" target="_blank">My Blog</a>
+                    </li>
+                </shiro:user>
+                <shiro:hasPermission name="blog:create">
+                    <li><a th:href="@{/blog/edit/-1}" target="_blank">Create a Blog</a>
+                    </li>
+                </shiro:hasPermission>
+                <shiro:guest>
+                    <li><a th:href="@{/login}">Login</a>
+                    </li>
+                </shiro:guest>
+                <shiro:user>
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown">
+                            <img th:src="${session.loginerPic}" alt="头像"
+                                 class="img-circle loginProfilePic hAvatar-small">
+                        </a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li>
+                                <a class="font-alt">
+                                    <shiro:principal property="userName"/>
+                                    (
+                                    <shiro:hasRole name="forbidden">Forbidden</shiro:hasRole>
+                                    <shiro:hasRole name="admin">Admin</shiro:hasRole>
+                                    )</a>
+                            </li>
+                            <shiro:hasRole name="admin">
+                                <li><a th:href="@{/admin/go}" target="_blank">Admin</a></li>
+                            </shiro:hasRole>
+                            <li><a th:href="@{/my}" target="_blank">My profile</a></li>
+                            <li><a th:href="@{/logout}">Log out</a></li>
+                        </ul>
+                    </li>
+                </shiro:user>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+
+<footer class="footer bg-dark" th:fragment="footerr" style="position:absolute;bottom:0px;left:0px;right: 0px;margin-bottom: 0px;margin-left: 0px;margin-right: 0px;z-index: 1023">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-3">
+                <p class="copyright font-alt">&copy; 2020&nbsp;<a href="#">Hly</a>, All Rights
+                    Reserved</p>
+            </div>
+            <div class="col-sm-3 text-center">
+                <p class="font-alt" style="margin: 0" th:inline="text">您是本站的第[(${session.visitorNum})]位访客!</p>
+            </div>
+            <div class="col-sm-3 text-center    ">
+                <p class="font-alt" style="margin: 0" id="showTime"></p>
+            </div>
+            <div class="col-sm-3">
+                <div class="footer-social-links">
+                    <a th:href="${session.githubLink}" target="_blank"><i class="fab fa-github"></i></a>
+                    <a th:href="${session.weiboLink}" target="_blank"><i class="fab fa-weibo"></i></a>
+                    <a th:href="${session.weixinLink}" target="_blank"><i class="fab fa-weixin"></i></a>
+                    <a th:href="${session.emailLink}" target="_blank"><i class="fas fa-envelope"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+
+</body>
+</html>
