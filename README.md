@@ -6,8 +6,7 @@
    本人也是3月份开始初学spring，因为本人兼顾学习作用，项目代码有些冗余，所以**本项目主要仅用作于学习并且可作为个人博客小站，但无法用作于生产**。   
 
   [在线预览](http://47.103.194.19/home) (注册邀请码: AAAA)
-  ![图片](https://github.com/holny/March_v2/blob/master/readmeinfo/admin.png)
-  
+
 
 ## 使用技术
 
