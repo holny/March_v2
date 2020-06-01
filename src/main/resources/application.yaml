@@ -33,7 +33,7 @@ spring:
       driver-class-name: com.mysql.cj.jdbc.Driver
       # 基本属性
       url: jdbc:mysql://localhost:3306/blog_v1?characterEncoding=utf-8&allowMultiQueries=true
-      username:
+      username: root
       password:
       #   配置监控统计拦截的filters，去掉后监控界面sql无法统计,log4j:日志记录，'wall'用于防火墙,防御sql注入
       # 如果报错ClassNotFoundException: org.apache.log4j.Priority, 则导入Log4j依赖即可，
@@ -82,7 +82,7 @@ spring:
   main:
     allow-bean-definition-overriding: true # 当遇到同样名字的时候，是否允许覆盖注册不配置会报错
   redis:
-    host:
+    host: 127.0.0.1
     port: 6379
     password:
     # 连接超时时间（毫秒）
@@ -119,10 +119,12 @@ shiro:
 
 file:
   upload:
-    path: /Users/hly/IdeaProjects/upload
+    path: /home/uploads
 
 logging:
   config: classpath:log4j2.xml
+  pattern:
+    file: mylo bgs/
 
 pagehelper:
   helper-dialect: mysql

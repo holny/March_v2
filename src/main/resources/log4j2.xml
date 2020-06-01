@@ -5,7 +5,7 @@
 <Configuration status="ALL" monitorInterval="30">
     <Properties>
         <!-- 应用需要修改为合适的log路径 -->
-        <Property name="baseLogDir">${sys:catalina.home}/logs</Property>
+        <Property name="baseLogDir">log4j2logs</Property>
         <Property name="pattern">%d{yyyy-MM-dd HH:mm:ss.SSS} %level{DEBUG=详细, INFO=信息, WARN=警告, ERROR=错误, TRACE=严重} [%t] [%c:%L] %m%n</Property>
         <Property name="pattern_console">%d{yyyy-MM-dd HH:mm:ss.SSS} %level{DEBUG=详细, INFO=信息, WARN=警告, ERROR=错误, TRACE=严重} [%t] [%c:%M:%L] %m%n</Property>
     </Properties>

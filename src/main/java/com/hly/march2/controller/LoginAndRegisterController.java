@@ -41,12 +41,12 @@ public class LoginAndRegisterController {
     public static final String MY_SHIRO_MSG = "msg";
 
     public enum RegisterCodeEnum {
-        SUPER_ADMIN_CODE(1, "USTC"),
-//        ADMIN_CODE(2, "BBBB"),
-//        LEVEL_4_CODE(3, "CCCC"),
-//        LEVEL_3_CODE(4, "DDDD"),
-//        LEVEL_2_CODE(5, "EEEE"),
-        LEVEL_1_CODE(6, "HFUT");
+        SUPER_ADMIN_CODE(1, "SUPERADMIN"),
+        ADMIN_CODE(2, "ADMIN"),
+        LEVEL_4_CODE(3, "CCCC"),
+        LEVEL_3_CODE(4, "DDDD"),
+        LEVEL_2_CODE(5, "EEEE"),
+        LEVEL_1_CODE(6, "FFFF");
 
         private Integer code;
         private String desc;
@@ -309,7 +309,11 @@ public class LoginAndRegisterController {
             register.setUserLastLoginTime(DateUtils.getCurrentDateTime());
             register.setUserIp(GetRequestInfo.getIpAddress(request));
             register.setUserProfilePic("default.jpeg");
-            register.setUserRights(UserController.RolesEnum.LEVEL_4_ROLE.getCode());
+            if (register.getInvitationCode() != null || RegisterCodeEnum.getCodeByDesc(register.getInvitationCode()) != null) {
+                register.setUserRights(RegisterCodeEnum.getCodeByDesc(register.getInvitationCode()));
+            }else{
+                register.setUserRights(UserController.RolesEnum.LEVEL_4_ROLE.getCode());
+            }
             register.setAccountStatus(UserController.AccountStatusEnum.INCOMPLETE_STATUS.getCode());
             // 需要MD5加密密码
             /**
