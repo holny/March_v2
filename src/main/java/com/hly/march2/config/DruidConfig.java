@@ -40,8 +40,8 @@ public class DruidConfig {
         ServletRegistrationBean bean = new ServletRegistrationBean(new StatViewServlet(), "/druid/*");
         Map<String,String> initParams = new HashMap<>();
         // key是固定的
-        initParams.put("loginUsername","admin");
-        initParams.put("loginPassword","123456");
+        initParams.put("loginUsername","");
+        initParams.put("loginPassword","");
         // IP白名单
         initParams.put("allow","");//默认就是允许所有访问
         // IP黑名单(共同存在时，deny优先于allow)

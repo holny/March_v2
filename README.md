@@ -12,7 +12,7 @@
 
 * Springboot  
 * 持久化框架 Mybatis 
-* 数据库连接池 Redis
+* 数据库连接池 Druid
 * 缓存 Redis
 * 数据校验 JSR303 validation
 * 认证授权安全框架 Shiro
