@@ -27,19 +27,18 @@
 
 ## 页面预览
 
-![首页](https://github.com/holny/Resource/blob/master/March_v2/1.gif)
+<img src="https://github.com/holny/Resource/blob/master/March_v2/1.gif" width="70%" height="70%">
 
-![过滤](https://github.com/holny/Resource/blob/master/March_v2/2.gif)
+<img src="https://github.com/holny/Resource/blob/master/March_v2/2.gif" width="70%" height="70%">
 
-![注册登录](https://github.com/holny/Resource/blob/master/March_v2/3.gif)
+<img src="https://github.com/holny/Resource/blob/master/March_v2/3.gif" width="70%" height="70%">
 
-![新建博客,博客浏览](https://github.com/holny/Resource/blob/master/March_v2/4.gif)
+<img src="https://github.com/holny/Resource/blob/master/March_v2/4.gif" width="70%" height="70%">
 
-![个人信息修改](https://github.com/holny/Resource/blob/master/March_v2/5.gif)
+<img src="https://github.com/holny/Resource/blob/master/March_v2/5.gif" width="70%" height="70%">
 
-![admin](https://github.com/holny/Resource/blob/master/March_v2/6.gif)
+<img src="https://github.com/holny/Resource/blob/master/March_v2/6.gif" width="70%" height="70%">
 
-[在线预览](http://47.103.194.19/home) (注册邀请码: AAAA)
 
 ## 功能介绍
 
