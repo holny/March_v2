@@ -1,9 +1,7 @@
 # March_v2 博客
 ## 关于项目
 
-   此项目的 V1版本是SSM版[March](https://github.com/holny/March_blog)博客，当前V2版本对V1版改为了Springboot，业务逻辑代码没有做较大修改，而且springboot的配置是参照目前2020-05最新的配置进行修改，所以对于初学者学SSHM和springboot工程方面有对比作用。
-
-   本人也是3月份开始初学spring，因为本人兼顾学习作用，项目代码有些冗余，所以**本项目主要仅用作于学习并且可作为个人博客小站，但无法用作于生产**。   
+   此项目是V2版Springboot。V1版本是SSM版[March](https://github.com/holny/March_blog)博客，当前V2版本对V1版改为了Springboot，业务逻辑代码没有做较大修改，而且springboot的配置是参照目前2020-05最新的2.3.0配置进行修改，所以对于初学者学SSHM和springboot工程方面有对比作用。 
 
   [在线预览](http://47.103.194.19/home) (注册邀请码: AAAA)
 
@@ -18,7 +16,7 @@
 * 认证授权安全框架 Shiro
 * 模板渲染引擎 Thymeleaf
 * 日志框架 Slf4j+log4j2
-* 前端框架 [Titan](https://themewagon.com/themes/titan/) - bootstrap
+* 前端组件 bootstrap
 * 前端Mark down插件 [editor.md](https://github.com/pandao/editor.md)
 * 分页插件 [pagehelper](https://mvnrepository.com/artifact/com.github.pagehelper/pagehelper-spring-boot-starter)
 * 验证码插件 [easy-captcha](https://mvnrepository.com/artifact/com.github.whvcse/easy-captcha)
@@ -336,6 +334,4 @@
 
 ## 关于开源
 
-​    本站用作于个人学习使用，请不要用作于商用(当然也不适合)。
-
-   _关于前端: 我是使用的bootsrap基础上修改的Titan前端组件，也是相当于bootsrap那种搭积木形式一块块做的，这个[Titan框架](https://themewagon.com/themes/titan/)挺不错的，缺点只是在Bootstrap3上，没在Bootsrap4上，_ 
+​    本项目主要仅用作于学习并且可作为个人博客小站，但无法用作于生产。
