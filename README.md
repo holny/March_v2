@@ -1,9 +1,9 @@
 # March_v2 博客
 ## 关于项目
 
-   此项目是V2版Springboot。V1版本是SSM版[March](https://github.com/holny/March_blog)博客，当前V2版本对V1版改为了Springboot，业务逻辑代码没有做较大修改，而且springboot的配置是参照目前2020-05最新的2.3.0配置进行修改，所以对于初学者学SSHM和springboot工程方面有对比作用。 
+   此项目是V2版Springboot。V1版本是SSM版博客: https://github.com/holny/March_blog ，当前V2版本对V1版改为了Springboot，业务逻辑代码没有做较大修改，而且springboot的配置是参照目前2020-05最新的2.3.0配置进行修改，所以对于初学者学SSHM和springboot工程方面有对比作用。 
 
-  [在线预览](http://47.103.194.19/home) (注册邀请码: AAAA)
+  在线预览：http://47.103.194.19/home (注册邀请码: AAAA)
 
 
 ## 使用技术
